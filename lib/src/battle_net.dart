@@ -39,7 +39,7 @@ class BattleNet {
   }
 
   Future<TokenIndex> getTokenIndex(String accessToken, BattleNetRegion region,
-      BattleNetLocale locale) async {
+      BattleNetNamespace namespace, BattleNetLocale locale) async {
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Bearer $accessToken'
     };
@@ -49,7 +49,7 @@ class BattleNet {
     final http.Request request = http.Request(
         'GET',
         Uri.parse(
-            'https://$baseUrl/data/wow/token/?namespace=${BattleNetNamespace.dynamic.name}-${region.name}&locale=${locale.name}'));
+            'https://$baseUrl/data/wow/token/?namespace=${namespace.name}-${region.name}&locale=${locale.name}'));
 
     request.headers.addAll(headers);
 
