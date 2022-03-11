@@ -6,11 +6,50 @@ import 'package:battle_net/src/models/token_index.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('get token', () async {
-    final BattleNet battleNet = BattleNet('', '');
-    final ClientCredentialsResponse response = await battleNet.postClientCredentials(BattleNetRegion.eu);
+  final BattleNet battleNet = BattleNet(
+      '', '');
+
+  test('get token eu', () async {
+    final ClientCredentialsResponse response =
+        await battleNet.postClientCredentials(BattleNetRegion.us);
     final TokenIndex token = await battleNet.getTokenIndex(
-        response.accessToken, BattleNetRegion.eu, BattleNetLocale.en_US);
+        response.accessToken, BattleNetRegion.eu, BattleNetLocale.en_GB);
+    print(response);
+    print(token);
+  });
+
+  test('get token us', () async {
+    final ClientCredentialsResponse response =
+        await battleNet.postClientCredentials(BattleNetRegion.us);
+    final TokenIndex token = await battleNet.getTokenIndex(
+        response.accessToken, BattleNetRegion.us, BattleNetLocale.en_US);
+    print(response);
+    print(token);
+  });
+
+  test('get token kr', () async {
+    final ClientCredentialsResponse response =
+        await battleNet.postClientCredentials(BattleNetRegion.us);
+    final TokenIndex token = await battleNet.getTokenIndex(
+        response.accessToken, BattleNetRegion.kr, BattleNetLocale.ko_KR);
+    print(response);
+    print(token);
+  });
+
+  test('get token tw', () async {
+    final ClientCredentialsResponse response =
+        await battleNet.postClientCredentials(BattleNetRegion.us);
+    final TokenIndex token = await battleNet.getTokenIndex(
+        response.accessToken, BattleNetRegion.tw, BattleNetLocale.zh_TW);
+    print(response);
+    print(token);
+  });
+
+  test('get token cn', () async {
+    final ClientCredentialsResponse response =
+    await battleNet.postClientCredentials(BattleNetRegion.us);
+    final TokenIndex token = await battleNet.getTokenIndex(
+        response.accessToken, BattleNetRegion.cn, BattleNetLocale.zh_CN);
     print(response);
     print(token);
   });
