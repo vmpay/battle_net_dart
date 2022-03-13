@@ -7,7 +7,7 @@ enum BattleNetRegion {
 }
 
 extension BattleNetRegionExtension on BattleNetRegion {
-  String get name {
+  String get slug {
     switch (this) {
       case BattleNetRegion.us:
         return 'us';
@@ -19,6 +19,21 @@ extension BattleNetRegionExtension on BattleNetRegion {
         return 'tw';
       case BattleNetRegion.cn:
         return 'cn';
+    }
+  }
+
+  String get name {
+    switch (this) {
+      case BattleNetRegion.us:
+        return 'North America';
+      case BattleNetRegion.eu:
+        return 'Europe';
+      case BattleNetRegion.kr:
+        return 'Korea';
+      case BattleNetRegion.tw:
+        return 'Taiwan';
+      case BattleNetRegion.cn:
+        return 'China';
     }
   }
 }

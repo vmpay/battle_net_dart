@@ -22,7 +22,7 @@ class BattleNet {
       'Content-Type': 'application/x-www-form-urlencoded'
     };
     final http.Request request = http.Request(
-        'POST', Uri.parse('https://${region.name}.battle.net/oauth/token'));
+        'POST', Uri.parse('https://${region.slug}.battle.net/oauth/token'));
     request.bodyFields = <String, String>{'grant_type': 'client_credentials'};
     request.headers.addAll(headers);
 
@@ -45,11 +45,11 @@ class BattleNet {
     };
     final String baseUrl = region == BattleNetRegion.cn
         ? 'gateway.battlenet.com.cn'
-        : '${region.name}.api.blizzard.com';
+        : '${region.slug}.api.blizzard.com';
     final http.Request request = http.Request(
         'GET',
         Uri.parse(
-            'https://$baseUrl/data/wow/token/?namespace=${namespace.name}-${region.name}&locale=${locale.name}'));
+            'https://$baseUrl/data/wow/token/?namespace=${namespace.name}-${region.slug}&locale=${locale.name}'));
 
     request.headers.addAll(headers);
 
