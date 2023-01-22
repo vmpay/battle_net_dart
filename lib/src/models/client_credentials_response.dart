@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
-@immutable
 class ClientCredentialsResponse {
   final String accessToken;
   final String tokenType;

@@ -4,7 +4,7 @@ import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:battle_net/src/models/client_credentials_response.dart';
 import 'package:battle_net/src/models/token_index.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import 'credentials.dart';
 
