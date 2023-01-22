@@ -6,9 +6,10 @@ import 'package:battle_net/src/models/client_credentials_response.dart';
 import 'package:battle_net/src/models/token_index.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'credentials.dart';
+
 void main() {
-  final BattleNet battleNet = BattleNet(
-      '', '');
+  final BattleNet battleNet = BattleNet(clientId, clientSecret);
 
   test('get token eu', () async {
     final ClientCredentialsResponse response =
