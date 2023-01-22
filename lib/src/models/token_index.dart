@@ -25,7 +25,7 @@ class TokenIndex {
         price: json['price'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         '_links': links.toJson(),
         'last_updated_timestamp': lastUpdatedTimestamp,
         'price': price,
@@ -66,7 +66,7 @@ class Links {
         self: Self.fromJson(json['self']),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'self': self.toJson(),
       };
 
@@ -100,7 +100,7 @@ class Self {
         href: json['href'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'href': href,
       };
 

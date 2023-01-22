@@ -1,44 +1,44 @@
 enum BattleNetLocale {
-  en_US,
-  es_MX,
-  pt_BR,
-  de_DE,
-  en_GB,
-  es_ES,
-  fr_FR,
-  it_IT,
-  ru_RU,
-  ko_KR,
-  zh_TW,
-  zh_CN,
+  enUS,
+  esMX,
+  ptBR,
+  deDE,
+  enGB,
+  esES,
+  frFR,
+  itIT,
+  ruRU,
+  koKR,
+  zhTW,
+  zhCN,
 }
 
 extension BattleNetLocaleExtension on BattleNetLocale {
   String get name {
     switch (this) {
-      case BattleNetLocale.en_US:
+      case BattleNetLocale.enUS:
         return 'en_US';
-      case BattleNetLocale.es_MX:
+      case BattleNetLocale.esMX:
         return 'es_MX';
-      case BattleNetLocale.pt_BR:
+      case BattleNetLocale.ptBR:
         return 'pt_BR';
-      case BattleNetLocale.de_DE:
+      case BattleNetLocale.deDE:
         return 'de_DE';
-      case BattleNetLocale.en_GB:
+      case BattleNetLocale.enGB:
         return 'en_GB';
-      case BattleNetLocale.es_ES:
+      case BattleNetLocale.esES:
         return 'es_ES';
-      case BattleNetLocale.fr_FR:
+      case BattleNetLocale.frFR:
         return 'fr_FR';
-      case BattleNetLocale.it_IT:
+      case BattleNetLocale.itIT:
         return 'it_IT';
-      case BattleNetLocale.ru_RU:
+      case BattleNetLocale.ruRU:
         return 'ru_RU';
-      case BattleNetLocale.ko_KR:
+      case BattleNetLocale.koKR:
         return 'ko_KR';
-      case BattleNetLocale.zh_TW:
+      case BattleNetLocale.zhTW:
         return 'zh_TW';
-      case BattleNetLocale.zh_CN:
+      case BattleNetLocale.zhCN:
         return 'zh_CN';
     }
   }

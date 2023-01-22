@@ -29,7 +29,7 @@ class ClientCredentialsResponse {
         sub: json['sub'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'access_token': accessToken,
         'token_type': tokenType,
         'expires_in': expiresIn,
