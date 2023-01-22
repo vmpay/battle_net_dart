@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:meta/meta.dart';
+
+@immutable
 class TokenIndex {
   const TokenIndex({
     required this.links,
@@ -47,6 +50,7 @@ class TokenIndex {
       links.hashCode ^ lastUpdatedTimestamp.hashCode ^ price.hashCode;
 }
 
+@immutable
 class Links {
   const Links({
     required this.self,
@@ -80,6 +84,7 @@ class Links {
   int get hashCode => self.hashCode;
 }
 
+@immutable
 class Self {
   const Self({
     required this.href,

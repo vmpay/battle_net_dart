@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:meta/meta.dart';
+
+@immutable
 class ClientCredentialsResponse {
   final String accessToken;
   final String tokenType;
