@@ -7,7 +7,7 @@ Future<void> main() async {
 
   /// Fetch access token providing region of the data to retrieve.
   final ClientCredentialsResponse clientCredentialsResponse =
-      await battleNet.postClientCredentials(BattleNetRegion.eu);
+      await battleNet.postClientCredentials();
 
   /// Fetch Token index price for EU region Retail version
   final TokenIndex tokenIndex = await battleNet.getTokenIndex(
