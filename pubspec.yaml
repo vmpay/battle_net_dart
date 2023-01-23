@@ -1,6 +1,6 @@
 name: battle_net
-description: Battle Net API wrapper
-version: 0.0.1
+description: Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation). You can easily communicate with BattleNet service inside your Flutter/Dart application.
+version: 0.1.0
 repository: https://github.com/vmpay/battle_net_dart
 issue_tracker: https://github.com/vmpay/battle_net_dart/issues
 

@@ -1,3 +1,5 @@
-## 0.0.1
+## 0.1.0
 
-* TODO: Describe initial release.
+* Post Client Credentials implementation
+* Get Token Index implementation
+* Initial project setup

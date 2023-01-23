@@ -13,7 +13,7 @@ void main() {
 
   test('get token eu', () async {
     final ClientCredentialsResponse response =
-        await battleNet.postClientCredentials(BattleNetRegion.us);
+        await battleNet.postClientCredentials(BattleNetRegion.eu);
     final TokenIndex token = await battleNet.getTokenIndex(response.accessToken,
         BattleNetRegion.eu, BattleNetNamespace.dynamic, BattleNetLocale.enGB);
     assert(token.price != -1);
@@ -21,15 +21,15 @@ void main() {
 
   test('get token us', () async {
     final ClientCredentialsResponse response =
-        await battleNet.postClientCredentials(BattleNetRegion.us);
+        await battleNet.postClientCredentials(BattleNetRegion.eu);
     final TokenIndex token = await battleNet.getTokenIndex(response.accessToken,
-        BattleNetRegion.us, BattleNetNamespace.dynamic, BattleNetLocale.enUS);
+        BattleNetRegion.eu, BattleNetNamespace.dynamic, BattleNetLocale.enUS);
     assert(token.price != -1);
   });
 
   test('get token kr', () async {
     final ClientCredentialsResponse response =
-        await battleNet.postClientCredentials(BattleNetRegion.us);
+        await battleNet.postClientCredentials(BattleNetRegion.eu);
     final TokenIndex token = await battleNet.getTokenIndex(response.accessToken,
         BattleNetRegion.kr, BattleNetNamespace.dynamic, BattleNetLocale.koKR);
     assert(token.price != -1);
@@ -37,7 +37,7 @@ void main() {
 
   test('get token tw', () async {
     final ClientCredentialsResponse response =
-        await battleNet.postClientCredentials(BattleNetRegion.us);
+        await battleNet.postClientCredentials(BattleNetRegion.eu);
     final TokenIndex token = await battleNet.getTokenIndex(response.accessToken,
         BattleNetRegion.tw, BattleNetNamespace.dynamic, BattleNetLocale.zhTW);
     assert(token.price != -1);
@@ -45,15 +45,15 @@ void main() {
 
   test('get token cn', () async {
     final ClientCredentialsResponse response =
-        await battleNet.postClientCredentials(BattleNetRegion.us);
+        await battleNet.postClientCredentials(BattleNetRegion.cn);
     final TokenIndex token = await battleNet.getTokenIndex(response.accessToken,
         BattleNetRegion.cn, BattleNetNamespace.dynamic, BattleNetLocale.zhCN);
     assert(token.price != -1);
   });
 
-  test('get token cn classic', () async {
+  test('get token cn classic cn', () async {
     final ClientCredentialsResponse response =
-        await battleNet.postClientCredentials(BattleNetRegion.us);
+        await battleNet.postClientCredentials(BattleNetRegion.cn);
     final TokenIndex token = await battleNet.getTokenIndex(
         response.accessToken,
         BattleNetRegion.cn,

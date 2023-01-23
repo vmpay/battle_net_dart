@@ -9,14 +9,14 @@ import 'models/client_credentials_response.dart';
 import 'models/token_index.dart';
 
 class BattleNet {
-  final String clientId;
-  final String clientSecret;
+  final String _clientId;
+  final String _clientSecret;
 
-  BattleNet(this.clientId, this.clientSecret);
+  BattleNet(this._clientId, this._clientSecret);
 
   Future<ClientCredentialsResponse> postClientCredentials(
       BattleNetRegion region) async {
-    final String auth = base64.encode(utf8.encode('$clientId:$clientSecret'));
+    final String auth = base64.encode(utf8.encode('$_clientId:$_clientSecret'));
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Basic $auth',
       'Content-Type': 'application/x-www-form-urlencoded'
