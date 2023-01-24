@@ -1,3 +1,5 @@
+/// Namespaces allow JSON documents to be published contextually in relation
+/// to a specific patch or point in time.
 enum BattleNetNamespace {
   static,
   dynamic,
@@ -8,6 +10,7 @@ enum BattleNetNamespace {
   dynamicClassic,
 }
 
+/// [BattleNetNamespace] query parameter mapper
 extension BattleNetNamespaceExtension on BattleNetNamespace {
   String get name {
     switch (this) {

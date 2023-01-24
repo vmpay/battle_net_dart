@@ -6,7 +6,7 @@ import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:http/http.dart' as http;
 
 import 'models/client_credentials_response.dart';
-import 'models/token_index.dart';
+import 'models/token_index_response.dart';
 
 class BattleNet {
   final String _clientId;
@@ -37,8 +37,11 @@ class BattleNet {
     }
   }
 
-  Future<TokenIndex> getTokenIndex(String accessToken, BattleNetRegion region,
-      BattleNetNamespace namespace, BattleNetLocale locale) async {
+  Future<TokenIndexResponse> getTokenIndex(
+      String accessToken,
+      BattleNetRegion region,
+      BattleNetNamespace namespace,
+      BattleNetLocale locale) async {
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Bearer $accessToken',
       'Battlenet-Namespace': '${namespace.name}-${region.slug}'
@@ -54,8 +57,8 @@ class BattleNet {
     final http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      final TokenIndex tokenIndex =
-          TokenIndex.fromRawJson(await response.stream.bytesToString());
+      final TokenIndexResponse tokenIndex =
+          TokenIndexResponse.fromRawJson(await response.stream.bytesToString());
       return tokenIndex;
     } else {
       throw Exception(response.reasonPhrase);

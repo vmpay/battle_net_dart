@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
+/// WoW Token index response model
 @immutable
-class TokenIndex {
-  const TokenIndex({
+class TokenIndexResponse {
+  const TokenIndexResponse({
     required this.links,
     required this.lastUpdatedTimestamp,
     required this.price,
@@ -14,12 +15,13 @@ class TokenIndex {
   final int lastUpdatedTimestamp;
   final int price;
 
-  factory TokenIndex.fromRawJson(String str) =>
-      TokenIndex.fromJson(json.decode(str));
+  factory TokenIndexResponse.fromRawJson(String str) =>
+      TokenIndexResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory TokenIndex.fromJson(Map<String, dynamic> json) => TokenIndex(
+  factory TokenIndexResponse.fromJson(Map<String, dynamic> json) =>
+      TokenIndexResponse(
         links: Links.fromJson(json['_links']),
         lastUpdatedTimestamp: json['last_updated_timestamp'],
         price: json['price'],
@@ -39,7 +41,7 @@ class TokenIndex {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TokenIndex &&
+      other is TokenIndexResponse &&
           runtimeType == other.runtimeType &&
           links == other.links &&
           lastUpdatedTimestamp == other.lastUpdatedTimestamp &&
@@ -50,6 +52,7 @@ class TokenIndex {
       links.hashCode ^ lastUpdatedTimestamp.hashCode ^ price.hashCode;
 }
 
+/// Request url confirmation holder data model
 @immutable
 class Links {
   const Links({
@@ -84,6 +87,7 @@ class Links {
   int get hashCode => self.hashCode;
 }
 
+/// Request url confirmation data model
 @immutable
 class Self {
   const Self({

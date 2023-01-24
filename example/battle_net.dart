@@ -10,7 +10,7 @@ Future<void> main() async {
       await battleNet.postClientCredentials();
 
   /// Fetch Token index price for EU region Retail version
-  final TokenIndex tokenIndex = await battleNet.getTokenIndex(
+  final TokenIndexResponse tokenIndex = await battleNet.getTokenIndex(
       clientCredentialsResponse.accessToken,
       BattleNetRegion.eu,
       BattleNetNamespace.dynamic,

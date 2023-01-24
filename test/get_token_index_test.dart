@@ -3,7 +3,7 @@ import 'package:battle_net/src/constants/battle_net_locale.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:battle_net/src/models/client_credentials_response.dart';
-import 'package:battle_net/src/models/token_index.dart';
+import 'package:battle_net/src/models/token_index_response.dart';
 import 'package:test/test.dart';
 
 import 'credentials.dart';
@@ -12,8 +12,9 @@ void main() {
   final BattleNet battleNet = BattleNet(clientId, clientSecret);
 
   test('get token eu', () async {
-    final TokenIndex token = await battleNet.postClientCredentials().then(
-        (ClientCredentialsResponse response) => battleNet.getTokenIndex(
+    final TokenIndexResponse token = await battleNet
+        .postClientCredentials()
+        .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
             response.accessToken,
             BattleNetRegion.eu,
             BattleNetNamespace.dynamic,
@@ -22,8 +23,9 @@ void main() {
   });
 
   test('get token us', () async {
-    final TokenIndex token = await battleNet.postClientCredentials().then(
-        (ClientCredentialsResponse response) => battleNet.getTokenIndex(
+    final TokenIndexResponse token = await battleNet
+        .postClientCredentials()
+        .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
             response.accessToken,
             BattleNetRegion.eu,
             BattleNetNamespace.dynamic,
@@ -32,8 +34,9 @@ void main() {
   });
 
   test('get token kr', () async {
-    final TokenIndex token = await battleNet.postClientCredentials().then(
-        (ClientCredentialsResponse response) => battleNet.getTokenIndex(
+    final TokenIndexResponse token = await battleNet
+        .postClientCredentials()
+        .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
             response.accessToken,
             BattleNetRegion.kr,
             BattleNetNamespace.dynamic,
@@ -42,8 +45,9 @@ void main() {
   });
 
   test('get token tw', () async {
-    final TokenIndex token = await battleNet.postClientCredentials().then(
-        (ClientCredentialsResponse response) => battleNet.getTokenIndex(
+    final TokenIndexResponse token = await battleNet
+        .postClientCredentials()
+        .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
             response.accessToken,
             BattleNetRegion.tw,
             BattleNetNamespace.dynamic,

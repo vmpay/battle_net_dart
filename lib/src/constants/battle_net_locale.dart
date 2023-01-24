@@ -1,3 +1,6 @@
+/// All available API resources provide localized strings using the locale query
+/// string parameter. Supported locales vary from region to region and align with
+/// those supported on Blizzard community sites.
 enum BattleNetLocale {
   enUS,
   esMX,
@@ -13,6 +16,7 @@ enum BattleNetLocale {
   zhCN,
 }
 
+/// [BattleNetLocale] query parameter mapper
 extension BattleNetLocaleExtension on BattleNetLocale {
   String get name {
     switch (this) {
