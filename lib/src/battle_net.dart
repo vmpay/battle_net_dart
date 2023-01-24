@@ -6,23 +6,22 @@ import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:http/http.dart' as http;
 
 import 'models/client_credentials_response.dart';
-import 'models/token_index.dart';
+import 'models/token_index_response.dart';
 
 class BattleNet {
-  final String clientId;
-  final String clientSecret;
+  final String _clientId;
+  final String _clientSecret;
 
-  BattleNet(this.clientId, this.clientSecret);
+  BattleNet(this._clientId, this._clientSecret);
 
-  Future<ClientCredentialsResponse> postClientCredentials(
-      BattleNetRegion region) async {
-    final String auth = base64.encode(utf8.encode('$clientId:$clientSecret'));
+  Future<ClientCredentialsResponse> postClientCredentials() async {
+    final String auth = base64.encode(utf8.encode('$_clientId:$_clientSecret'));
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Basic $auth',
       'Content-Type': 'application/x-www-form-urlencoded'
     };
-    final http.Request request = http.Request(
-        'POST', Uri.parse('https://${region.slug}.battle.net/oauth/token'));
+    final http.Request request =
+        http.Request('POST', Uri.parse('https://oauth.battle.net/oauth/token'));
     request.bodyFields = <String, String>{'grant_type': 'client_credentials'};
     request.headers.addAll(headers);
 
@@ -38,26 +37,28 @@ class BattleNet {
     }
   }
 
-  Future<TokenIndex> getTokenIndex(String accessToken, BattleNetRegion region,
-      BattleNetNamespace namespace, BattleNetLocale locale) async {
+  Future<TokenIndexResponse> getTokenIndex(
+      String accessToken,
+      BattleNetRegion region,
+      BattleNetNamespace namespace,
+      BattleNetLocale locale) async {
     final Map<String, String> headers = <String, String>{
-      'Authorization': 'Bearer $accessToken'
+      'Authorization': 'Bearer $accessToken',
+      'Battlenet-Namespace': '${namespace.name}-${region.slug}'
     };
     final String baseUrl = region == BattleNetRegion.cn
         ? 'gateway.battlenet.com.cn'
         : '${region.slug}.api.blizzard.com';
-    final http.Request request = http.Request(
-        'GET',
-        Uri.parse(
-            'https://$baseUrl/data/wow/token/?namespace=${namespace.name}-${region.slug}&locale=${locale.name}'));
+    final http.Request request = http.Request('GET',
+        Uri.parse('https://$baseUrl/data/wow/token/?locale=${locale.name}'));
 
     request.headers.addAll(headers);
 
     final http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      final TokenIndex tokenIndex =
-          TokenIndex.fromRawJson(await response.stream.bytesToString());
+      final TokenIndexResponse tokenIndex =
+          TokenIndexResponse.fromRawJson(await response.stream.bytesToString());
       return tokenIndex;
     } else {
       throw Exception(response.reasonPhrase);

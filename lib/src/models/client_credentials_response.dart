@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
+/// Access token response data model. This is the only request necessary for
+/// the client credential flow, OAuth's authentication flow intended for application servers.
 @immutable
 class ClientCredentialsResponse {
   final String accessToken;

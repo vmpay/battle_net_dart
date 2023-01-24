@@ -1,3 +1,6 @@
+/// API data is limited to specific regions. For example, US APIs accessed
+/// through us.battle.net only contain data from US battlegroups and realms.
+/// Locale support is limited to locations supported on Blizzard community game sites.
 enum BattleNetRegion {
   us,
   eu,
@@ -6,6 +9,7 @@ enum BattleNetRegion {
   cn,
 }
 
+/// [BattleNetRegion] query and title parameters mapper
 extension BattleNetRegionExtension on BattleNetRegion {
   String get slug {
     switch (this) {
