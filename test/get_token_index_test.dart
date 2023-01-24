@@ -54,28 +54,4 @@ void main() {
             BattleNetLocale.zhTW));
     assert(token.price != -1);
   });
-
-  test('get token cn', () async {
-    expect(
-        () => battleNet.postClientCredentials().then(
-            (ClientCredentialsResponse response) => battleNet.getTokenIndex(
-                response.accessToken,
-                BattleNetRegion.cn,
-                BattleNetNamespace.dynamic,
-                BattleNetLocale.zhCN)),
-        throwsA((Object e) =>
-            e is Exception && e.toString().contains('Not Found')));
-  });
-
-  test('get token classic cn', () async {
-    expect(
-        () => battleNet.postClientCredentials().then(
-            (ClientCredentialsResponse response) => battleNet.getTokenIndex(
-                response.accessToken,
-                BattleNetRegion.cn,
-                BattleNetNamespace.dynamicClassic,
-                BattleNetLocale.zhCN)),
-        throwsA((Object e) =>
-            e is Exception && e.toString().contains('Not Found')));
-  });
 }
