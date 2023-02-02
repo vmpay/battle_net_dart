@@ -14,6 +14,8 @@ class BattleNet {
   BattleNet(String clientId, String clientSecret)
       : _auth = base64.encode(utf8.encode('$clientId:$clientSecret'));
 
+  ///This is the only request necessary for the client credential flow,
+  ///OAuth's authentication flow intended for application servers.
   Future<ClientCredentialsResponse> postClientCredentials() async {
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Basic $_auth',
@@ -36,6 +38,7 @@ class BattleNet {
     }
   }
 
+  /// Returns the WoW Token index.
   Future<TokenIndexResponse> getTokenIndex(
       String accessToken,
       BattleNetRegion region,
