@@ -17,7 +17,8 @@ and the Flutter guide for
 [![Pub Points](https://img.shields.io/pub/points/battle_net?logo=flutter&logoColor=lightblue)](https://pub.dev/packages/battle_net)
 
 
-Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation). 
+Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation)
+
 You can easily communicate with BattleNet service inside your Flutter/Dart application.   
 
 ## Available Features
