@@ -3,7 +3,7 @@ import 'package:battle_net/src/constants/battle_net_locale.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:battle_net/src/models/client_credentials_response.dart';
-import 'package:battle_net/src/models/token_index_response.dart';
+import 'package:battle_net/src/models/token/token_index_response.dart';
 import 'package:test/test.dart';
 
 import 'credentials.dart';
@@ -15,10 +15,10 @@ void main() {
     final TokenIndexResponse token = await battleNet
         .postClientCredentials()
         .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
-            response.accessToken,
-            BattleNetRegion.eu,
-            BattleNetNamespace.dynamic,
-            BattleNetLocale.enGB));
+            accessToken: response.accessToken,
+            region: BattleNetRegion.eu,
+            namespace: BattleNetNamespace.dynamic,
+            locale: BattleNetLocale.enGB));
     assert(token.price != -1);
   });
 
@@ -26,10 +26,10 @@ void main() {
     final TokenIndexResponse token = await battleNet
         .postClientCredentials()
         .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
-            response.accessToken,
-            BattleNetRegion.eu,
-            BattleNetNamespace.dynamic,
-            BattleNetLocale.enUS));
+            accessToken: response.accessToken,
+            region: BattleNetRegion.eu,
+            namespace: BattleNetNamespace.dynamic,
+            locale: BattleNetLocale.enUS));
     assert(token.price != -1);
   });
 
@@ -37,10 +37,10 @@ void main() {
     final TokenIndexResponse token = await battleNet
         .postClientCredentials()
         .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
-            response.accessToken,
-            BattleNetRegion.kr,
-            BattleNetNamespace.dynamic,
-            BattleNetLocale.koKR));
+            accessToken: response.accessToken,
+            region: BattleNetRegion.kr,
+            namespace: BattleNetNamespace.dynamic,
+            locale: BattleNetLocale.koKR));
     assert(token.price != -1);
   });
 
@@ -48,10 +48,10 @@ void main() {
     final TokenIndexResponse token = await battleNet
         .postClientCredentials()
         .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
-            response.accessToken,
-            BattleNetRegion.tw,
-            BattleNetNamespace.dynamic,
-            BattleNetLocale.zhTW));
+            accessToken: response.accessToken,
+            region: BattleNetRegion.tw,
+            namespace: BattleNetNamespace.dynamic,
+            locale: BattleNetLocale.zhTW));
     assert(token.price != -1);
   });
 }

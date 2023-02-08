@@ -64,6 +64,18 @@ final TokenIndex tokenIndex = await battleNet.getTokenIndex(
     BattleNetLocale.enGB);
 ```
 
+You can also fetch connected realm details by id using the example below:
+
+```dart
+const int connectedRealmId = 1301;
+final ConnectedRealmResponse connectedRealm = 
+    await battleNet.getConnectedRealm(
+      accessToken: clientCredentialsResponse.accessToken,
+      region: BattleNetRegion.eu,
+      namespace: BattleNetNamespace.dynamic,
+      locale: BattleNetLocale.enGB,
+      id: connectedRealmId);
+```
 
 ## Additional information
 

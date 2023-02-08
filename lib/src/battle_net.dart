@@ -6,8 +6,10 @@ import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:http/http.dart' as http;
 
 import 'models/client_credentials_response.dart';
-import 'models/token_index_response.dart';
+import 'models/realm/connected_realm_response.dart';
+import 'models/token/token_index_response.dart';
 
+/// Battle Net dart wrapper client
 class BattleNet {
   final String _auth;
 
@@ -39,11 +41,12 @@ class BattleNet {
   }
 
   /// Returns the WoW Token index.
-  Future<TokenIndexResponse> getTokenIndex(
-      String accessToken,
-      BattleNetRegion region,
-      BattleNetNamespace namespace,
-      BattleNetLocale locale) async {
+  Future<TokenIndexResponse> getTokenIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetNamespace namespace,
+    required BattleNetLocale locale,
+  }) async {
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Bearer $accessToken',
       'Battlenet-Namespace': '${namespace.name}-${region.slug}'
@@ -62,6 +65,35 @@ class BattleNet {
       final TokenIndexResponse tokenIndex =
           TokenIndexResponse.fromRawJson(await response.stream.bytesToString());
       return tokenIndex;
+    } else {
+      throw Exception(response.reasonPhrase);
+    }
+  }
+
+  /// Returns a connected realm by ID.
+  Future<ConnectedRealmResponse> getConnectedRealm({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetNamespace namespace,
+    required BattleNetLocale locale,
+    required int id,
+  }) async {
+    final Map<String, String> headers = <String, String>{
+      'Authorization': 'Bearer $accessToken',
+      'Battlenet-Namespace': '${namespace.name}-${region.slug}'
+    };
+    final http.Request request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://${region.slug}.api.blizzard.com/data/wow/connected-realm/$id?locale=${locale.name}'));
+
+    request.headers.addAll(headers);
+
+    final http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return ConnectedRealmResponse.fromRawJson(
+          await response.stream.bytesToString());
     } else {
       throw Exception(response.reasonPhrase);
     }
