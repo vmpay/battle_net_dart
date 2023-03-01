@@ -57,10 +57,12 @@ class RealmTypeLocalised {
   int get hashCode => name.hashCode ^ type.hashCode;
 }
 
-enum RealmType { NORMAL, RP }
+enum RealmType { NORMAL, RP, PVP, PVP_RP }
 
 final EnumValues<RealmType> realmTypeValues =
     EnumValues<RealmType>(<String, RealmType>{
   'NORMAL': RealmType.NORMAL,
   'RP': RealmType.RP,
+  'PVP': RealmType.PVP,
+  'PVP_RP': RealmType.PVP_RP,
 });

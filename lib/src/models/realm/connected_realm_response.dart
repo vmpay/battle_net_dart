@@ -28,7 +28,7 @@ class ConnectedRealmResponse {
   final Population status;
   final Population population;
   final List<Realm> realms;
-  final Self mythicLeaderboards;
+  final Self? mythicLeaderboards;
   final Self auctions;
 
   ConnectedRealmResponse copyWith({
@@ -65,7 +65,9 @@ class ConnectedRealmResponse {
         status: Population.fromJson(json['status']),
         population: Population.fromJson(json['population']),
         realms: List<Realm>.from(json['realms'].map((x) => Realm.fromJson(x))),
-        mythicLeaderboards: Self.fromJson(json['mythic_leaderboards']),
+        mythicLeaderboards: json['mythic_leaderboards'] != null
+            ? Self.fromJson(json['mythic_leaderboards'])
+            : null,
         auctions: Self.fromJson(json['auctions']),
       );
 
@@ -76,7 +78,7 @@ class ConnectedRealmResponse {
         'status': status.toJson(),
         'population': population.toJson(),
         'realms': List<dynamic>.from(realms.map((x) => x.toJson())),
-        'mythic_leaderboards': mythicLeaderboards.toJson(),
+        'mythic_leaderboards': mythicLeaderboards?.toJson(),
         'auctions': auctions.toJson(),
       };
 

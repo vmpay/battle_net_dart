@@ -57,7 +57,7 @@ class PopulationTypeLocalised {
   int get hashCode => name.hashCode ^ type.hashCode;
 }
 
-enum PopulationType { LOW, MEDIUM, FULL, HIGH, RECOMMENDED, OFFLINE }
+enum PopulationType { LOW, MEDIUM, FULL, HIGH, LOCKED, RECOMMENDED, OFFLINE }
 
 final EnumValues<PopulationType> populationTypeValues =
     EnumValues<PopulationType>(<String, PopulationType>{
@@ -65,6 +65,7 @@ final EnumValues<PopulationType> populationTypeValues =
   'MEDIUM': PopulationType.MEDIUM,
   'HIGH': PopulationType.HIGH,
   'FULL': PopulationType.FULL,
+  'LOCKED': PopulationType.LOCKED,
   'RECOMMENDED': PopulationType.RECOMMENDED,
   'OFFLINE': PopulationType.OFFLINE,
 });

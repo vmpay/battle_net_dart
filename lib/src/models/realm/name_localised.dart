@@ -19,7 +19,7 @@ class NameLocalised {
     required this.deDe,
   });
 
-  final String itIt;
+  final String? itIt;
   final String ruRu;
   final String enGb;
   final String zhTw;
