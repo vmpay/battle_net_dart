@@ -3,7 +3,8 @@ import 'package:battle_net/battle_net.dart';
 /// This example shows how to fetch [TokenResponse] data with additional information
 Future<void> main() async {
   /// Provide client id and client secret
-  final BattleNet battleNet = BattleNet('clientId', 'clientSecret');
+  final BattleNet battleNet =
+      BattleNet(clientId: 'clientId', clientSecret: 'clientSecret');
 
   /// Fetch access token providing region of the data to retrieve.
   final ClientCredentialsResponse clientCredentialsResponse =

@@ -2,6 +2,7 @@ import 'package:battle_net/src/battle_net.dart';
 import 'package:battle_net/src/constants/battle_net_locale.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
+import 'package:battle_net/src/logger/log_level.dart';
 import 'package:battle_net/src/models/client_credentials_response.dart';
 import 'package:battle_net/src/models/realm/connected_realm_response.dart';
 import 'package:test/test.dart';
@@ -9,7 +10,11 @@ import 'package:test/test.dart';
 import 'credentials.dart';
 
 void main() {
-  final BattleNet battleNet = BattleNet(clientId, clientSecret);
+  final BattleNet battleNet = BattleNet(
+      clientId: clientId,
+      clientSecret: clientSecret,
+      logLevel: LogLevel.BODY,
+      enableReleaseLogging: false);
 
   group('get connected realm retail', () {
     test('get connected realm eu', () async {

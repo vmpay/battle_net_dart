@@ -8,6 +8,8 @@ import 'package:battle_net/src/models/realm/realm_localised.dart';
 import 'package:battle_net/src/models/realm/server_status_localised.dart';
 import 'package:http/http.dart' as http;
 
+import 'logger/log_level.dart';
+import 'logger/logger.dart';
 import 'models/client_credentials_response.dart';
 import 'models/realm/connected_realm_response.dart';
 import 'models/realm/connected_realm_search_response.dart';
@@ -17,11 +19,17 @@ import 'models/token/token_index_response.dart';
 class BattleNet {
   final String _auth;
 
-  BattleNet(String clientId, String clientSecret)
-      : _auth = base64.encode(utf8.encode('$clientId:$clientSecret'));
+  BattleNet({
+    required String clientId,
+    required String clientSecret,
+    LogLevel logLevel = LogLevel.BASIC,
+    bool enableReleaseLogging = false,
+  }) : _auth = base64.encode(utf8.encode('$clientId:$clientSecret')) {
+    Logger.init(logLevel: logLevel, enableReleaseLogging: enableReleaseLogging);
+  }
 
-  ///This is the only request necessary for the client credential flow,
-  ///OAuth's authentication flow intended for application servers.
+  /// This is the only request necessary for the client credential flow,
+  /// OAuth's authentication flow intended for application servers.
   Future<ClientCredentialsResponse> postClientCredentials() async {
     final Map<String, String> headers = <String, String>{
       'Authorization': 'Basic $_auth',
@@ -32,14 +40,18 @@ class BattleNet {
     request.bodyFields = <String, String>{'grant_type': 'client_credentials'};
     request.headers.addAll(headers);
 
+    Logger.logRequest(request: request);
+
     final http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      final String body = await response.stream.bytesToString();
+      Logger.logResponse(response: response, body: body);
       final ClientCredentialsResponse ccResponse =
-          ClientCredentialsResponse.fromRawJson(
-              await response.stream.bytesToString());
+          ClientCredentialsResponse.fromRawJson(body);
       return ccResponse;
     } else {
+      Logger.logResponse(response: response);
       throw Exception(response.reasonPhrase);
     }
   }
@@ -60,16 +72,20 @@ class BattleNet {
         : '${region.slug}.api.blizzard.com';
     final http.Request request = http.Request('GET',
         Uri.parse('https://$baseUrl/data/wow/token/?locale=${locale.name}'));
-
     request.headers.addAll(headers);
+
+    Logger.logRequest(request: request);
 
     final http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      final String body = await response.stream.bytesToString();
+      Logger.logResponse(response: response, body: body);
       final TokenIndexResponse tokenIndex =
-          TokenIndexResponse.fromRawJson(await response.stream.bytesToString());
+          TokenIndexResponse.fromRawJson(body);
       return tokenIndex;
     } else {
+      Logger.logResponse(response: response);
       throw Exception(response.reasonPhrase);
     }
   }
@@ -90,15 +106,18 @@ class BattleNet {
         'GET',
         Uri.parse(
             'https://${region.slug}.api.blizzard.com/data/wow/connected-realm/$id?locale=${locale.name}'));
-
     request.headers.addAll(headers);
+
+    Logger.logRequest(request: request);
 
     final http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      return ConnectedRealmResponse.fromRawJson(
-          await response.stream.bytesToString());
+      final String body = await response.stream.bytesToString();
+      Logger.logResponse(response: response, body: body);
+      return ConnectedRealmResponse.fromRawJson(body);
     } else {
+      Logger.logResponse(response: response);
       throw Exception(response.reasonPhrase);
     }
   }
@@ -126,16 +145,18 @@ class BattleNet {
       Uri.parse(
           'https://${region.slug}.api.blizzard.com/data/wow/search/connected-realm?status.type=${statusType != null ? serverStatusValues.reverse[statusType] : ''}&realms.timezone=${realmsTimezone != null ? realmTimezoneValues.reverse[realmsTimezone] : ''}&population.type=${populationType != null ? populationTypeValues.reverse[populationType] : ''}&orderby=$orderBy&_page=$page&_pageSize=$pageSize&has_queue=${hasQueue ?? ''}&realms.is_tournament=${realmsIsTournament ?? ''}'),
     );
-
     request.headers.addAll(headers);
+
+    Logger.logRequest(request: request);
 
     final http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      final res = await response.stream.bytesToString();
-      // print('res $res');
-      return ConnectedRealmSearchResponse.fromRawJson(res);
+      final String body = await response.stream.bytesToString();
+      Logger.logResponse(response: response, body: body);
+      return ConnectedRealmSearchResponse.fromRawJson(body);
     } else {
+      Logger.logResponse(response: response);
       throw Exception(response.reasonPhrase);
     }
   }
