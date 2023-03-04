@@ -1,5 +1,4 @@
 import 'package:battle_net/battle_net.dart';
-import 'package:battle_net/src/logger/log_level.dart';
 import 'package:test/test.dart';
 
 import 'credentials.dart';

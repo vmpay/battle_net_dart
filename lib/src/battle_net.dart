@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'logger/log_level.dart';
 import 'logger/logger.dart';
 import 'models/client_credentials_response.dart';
-import 'models/realm/connected_realm_response.dart';
+import 'models/realm/connected_realm_search_data.dart';
 import 'models/realm/connected_realm_search_response.dart';
 import 'models/token/token_index_response.dart';
 
@@ -91,11 +91,10 @@ class BattleNet {
   }
 
   /// Returns a connected realm by ID.
-  Future<ConnectedRealmResponse> getConnectedRealm({
+  Future<ConnectedRealmSearchData> getConnectedRealm({
     required String accessToken,
     required BattleNetRegion region,
     required BattleNetNamespace namespace,
-    required BattleNetLocale locale,
     required int id,
   }) async {
     final Map<String, String> headers = <String, String>{
@@ -105,7 +104,7 @@ class BattleNet {
     final http.Request request = http.Request(
         'GET',
         Uri.parse(
-            'https://${region.slug}.api.blizzard.com/data/wow/connected-realm/$id?locale=${locale.name}'));
+            'https://${region.slug}.api.blizzard.com/data/wow/connected-realm/$id'));
     request.headers.addAll(headers);
 
     Logger.logRequest(request: request);
@@ -115,7 +114,7 @@ class BattleNet {
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
       Logger.logResponse(response: response, body: body);
-      return ConnectedRealmResponse.fromRawJson(body);
+      return ConnectedRealmSearchData.fromRawJson(body);
     } else {
       Logger.logResponse(response: response);
       throw Exception(response.reasonPhrase);

@@ -7,6 +7,7 @@ import 'population_type_localised.dart';
 import 'realm_localised.dart';
 import 'server_status_localised.dart';
 
+/// Connected realm response model
 @immutable
 class ConnectedRealmSearchData {
   const ConnectedRealmSearchData({
@@ -46,15 +47,15 @@ class ConnectedRealmSearchData {
   factory ConnectedRealmSearchData.fromJson(Map<String, dynamic> json) =>
       ConnectedRealmSearchData(
         realms: List<RealmLocalised>.from(
-            json['realms'].map((x) => RealmLocalised.fromJson(x))),
+            json['realms'].map((dynamic x) => RealmLocalised.fromJson(x))),
         id: json['id'],
         hasQueue: json['has_queue'],
         status: ServerStatusLocalised.fromJson(json['status']),
         population: PopulationTypeLocalised.fromJson(json['population']),
       );
 
-  Map<String, dynamic> toJson() => {
-        'realms': List<dynamic>.from(realms.map((x) => x.toJson())),
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'realms': List<dynamic>.from(realms.map((dynamic x) => x.toJson())),
         'id': id,
         'has_queue': hasQueue,
         'status': status.toJson(),

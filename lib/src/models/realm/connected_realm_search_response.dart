@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'connected_realm_result.dart';
 
+/// Connected realm search data model
 @immutable
 class ConnectedRealmSearchResponse {
   const ConnectedRealmSearchResponse({
@@ -47,16 +48,16 @@ class ConnectedRealmSearchResponse {
         pageSize: json['pageSize'],
         maxPageSize: json['maxPageSize'],
         pageCount: json['pageCount'],
-        results: List<ConnectedRealmResult>.from(
-            json['results'].map((x) => ConnectedRealmResult.fromJson(x))),
+        results: List<ConnectedRealmResult>.from(json['results']
+            .map((dynamic x) => ConnectedRealmResult.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'page': page,
         'pageSize': pageSize,
         'maxPageSize': maxPageSize,
         'pageCount': pageCount,
-        'results': List<dynamic>.from(results.map((x) => x.toJson())),
+        'results': List<dynamic>.from(results.map((dynamic x) => x.toJson())),
       };
 
   @override

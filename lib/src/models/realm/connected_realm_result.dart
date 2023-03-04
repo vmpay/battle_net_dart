@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import '../common/self.dart';
 import 'connected_realm_search_data.dart';
 
+/// Connected realm result data model
 @immutable
 class ConnectedRealmResult {
   const ConnectedRealmResult({
@@ -35,7 +36,7 @@ class ConnectedRealmResult {
         data: ConnectedRealmSearchData.fromJson(json['data']),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'key': key.toJson(),
         'data': data.toJson(),
       };

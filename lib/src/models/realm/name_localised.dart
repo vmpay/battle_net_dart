@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
+/// Name data model
 @immutable
 class NameLocalised {
   const NameLocalised({
@@ -81,7 +82,7 @@ class NameLocalised {
         deDe: json['de_DE'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'it_IT': itIt,
         'ru_RU': ruRu,
         'en_GB': enGb,

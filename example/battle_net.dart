@@ -20,12 +20,11 @@ Future<void> main() async {
 
   /// Fetch connected 'Outland' realm details
   const int connectedRealmId = 1301;
-  final ConnectedRealmResponse connectedRealm =
+  final ConnectedRealmSearchData connectedRealm =
       await battleNet.getConnectedRealm(
           accessToken: clientCredentialsResponse.accessToken,
           region: BattleNetRegion.eu,
           namespace: BattleNetNamespace.dynamic,
-          locale: BattleNetLocale.enGB,
           id: connectedRealmId);
   print(connectedRealm);
 }

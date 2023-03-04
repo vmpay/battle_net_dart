@@ -7,6 +7,7 @@ import 'name_localised.dart';
 import 'realm_type_localised.dart';
 import 'region_localised.dart';
 
+/// Realm data model
 @immutable
 class RealmLocalised {
   const RealmLocalised({
@@ -71,7 +72,7 @@ class RealmLocalised {
         slug: json['slug'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'is_tournament': isTournament,
         'timezone': realmTimezoneValues.reverse[timezone],
         'name': name.toJson(),

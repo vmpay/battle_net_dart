@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 import 'name_localised.dart';
 
+/// Realm region data model
 @immutable
 class RegionLocalised {
   const RegionLocalised({
@@ -34,7 +35,7 @@ class RegionLocalised {
         id: json['id'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name.toJson(),
         'id': id,
       };

@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'name_localised.dart';
 
+/// Realm type data model
 @immutable
 class RealmTypeLocalised {
   const RealmTypeLocalised({
@@ -35,7 +36,7 @@ class RealmTypeLocalised {
         type: realmTypeValues.map[json['type']]!,
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name.toJson(),
         'type': realmTypeValues.reverse[type],
       };

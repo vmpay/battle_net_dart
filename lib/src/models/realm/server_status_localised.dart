@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import '../common/enum_values.dart';
 import 'name_localised.dart';
 
+/// Server status data model
 @immutable
 class ServerStatusLocalised {
   const ServerStatusLocalised({
@@ -35,7 +36,7 @@ class ServerStatusLocalised {
         type: serverStatusValues.map[json['type']]!,
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name.toJson(),
         'type': serverStatusValues.reverse[type],
       };
