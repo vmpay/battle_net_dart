@@ -1,6 +1,6 @@
 name: battle_net
 description: Dart wrapper client for Battle.Net API https://develop.battle.net/documentation
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/vmpay/battle_net_dart
 issue_tracker: https://github.com/vmpay/battle_net_dart/issues
 
