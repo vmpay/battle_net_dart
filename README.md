@@ -17,7 +17,8 @@ and the Flutter guide for
 [![Pub Points](https://img.shields.io/pub/points/battle_net?logo=flutter&logoColor=lightblue)](https://pub.dev/packages/battle_net)
 
 
-Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation). 
+Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation)
+
 You can easily communicate with BattleNet service inside your Flutter/Dart application.   
 
 ## Available Features
@@ -25,6 +26,8 @@ You can easily communicate with BattleNet service inside your Flutter/Dart appli
 * Post Client Credentials - Access Token Request. This is the only request necessary for the client 
 credential flow, OAuth's authentication flow intended for application servers.
 * Get Token Index - Returns the WoW Token index.
+* Connected Realm - Returns a connected realm by ID.
+* Connected Realms Search - Performs a search of connected realms.
 
 ## Getting started
 
@@ -46,23 +49,57 @@ import 'package:battle_net/battle_net.dart';
 Provide client id and client secret, which can be found in your developer account on [BattleNet](https://develop.battle.net/access/clients).
 
 ```dart
-final BattleNet battleNet = BattleNet('clientId', 'clientSecret');
+final BattleNet battleNet = 
+  BattleNet(clientId: 'clientId', clientSecret: 'clientSecret');
 ```
 
-Now you can fetch data from BattleNet services. 
+Now you can fetch data from BattleNet services.
 
+```dart
+final ClientCredentialsResponse clientCredentialsResponse = 
+    await battleNet.postClientCredentials();
+```
+
+### Get Token Index
 You can fetch Retail WoW Token price in EU region using this example.
 
 ```dart
-final ClientCredentialsResponse clientCredentialsResponse =
-    await battleNet.postClientCredentials(BattleNetRegion.eu);
 final TokenIndex tokenIndex = await battleNet.getTokenIndex(
-    clientCredentialsResponse.accessToken,
-    BattleNetRegion.eu,
-    BattleNetNamespace.dynamic,
-    BattleNetLocale.enGB);
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    namespace: BattleNetNamespace.dynamic,
+    locale: BattleNetLocale.enGB);
 ```
 
+### Connected Realm
+You can also fetch connected realm details by id using the example below:
+
+```dart
+const int connectedRealmId = 1301;
+final ConnectedRealmResponse connectedRealm = await battleNet.getConnectedRealm(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    namespace: BattleNetNamespace.dynamic,
+    id: connectedRealmId);
+```
+
+### Connected Realm Search
+You can also fetch connected realm details by id using the example below:
+
+```dart
+const int connectedRealmId = 1301;
+final ConnectedRealmSearchResponse result = 
+    await battleNet.getConnectedRealmSearch(
+      accessToken: clientCredentialsResponse.accessToken,
+      region: BattleNetRegion.eu,
+      namespace: BattleNetNamespace.dynamic,
+      statusType: ServerStatus.UP,
+      realmsTimezone: RealmTimezone.EUROPE_PARIS,
+      hasQueue: false,
+      populationType: PopulationType.FULL,
+      realmsIsTournament: false,
+);
+```
 
 ## Additional information
 
