@@ -1,3 +1,9 @@
+## 0.1.2
+
+* Test coverage increased
+* Documentation examples extended
+* README.md update
+
 ## 0.1.1
 
 * Models unified

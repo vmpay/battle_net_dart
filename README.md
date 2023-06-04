@@ -10,14 +10,13 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
+Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation)
+
 ![workflow](https://github.com/vmpay/battle_net_dart/actions/workflows/main.yml/badge.svg)
 [![GitHub](https://img.shields.io/github/license/vmpay/battle_net_dart?color=salad&logo=github)](https://github.com/vmpay/battle_net_dart/blob/master/LICENSE)
 [![Pub](https://img.shields.io/pub/v/battle_net.svg?logo=dart&logoColor=blue)](https://pub.dev/packages/battle_net)
 [![package publisher](https://img.shields.io/pub/publisher/battle_net.svg?logo=dart&logoColor=blue)](https://pub.dev/packages/battle_net/publisher)
 [![Pub Points](https://img.shields.io/pub/points/battle_net?logo=flutter&logoColor=lightblue)](https://pub.dev/packages/battle_net)
-
-
-Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation)
 
 You can easily communicate with BattleNet service inside your Flutter/Dart application.   
 
@@ -87,7 +86,6 @@ final ConnectedRealmResponse connectedRealm = await battleNet.getConnectedRealm(
 You can also fetch connected realm details by id using the example below:
 
 ```dart
-const int connectedRealmId = 1301;
 final ConnectedRealmSearchResponse result = 
     await battleNet.getConnectedRealmSearch(
       accessToken: clientCredentialsResponse.accessToken,
