@@ -18,6 +18,16 @@ Future<void> main() async {
       locale: BattleNetLocale.enGB);
   print(tokenIndex);
 
+  /// Fetch Token index price for EU region Classic version
+  final TokenIndexResponse tokenIndexClassic = await battleNet
+      .postClientCredentials()
+      .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
+          accessToken: response.accessToken,
+          region: BattleNetRegion.eu,
+          namespace: BattleNetNamespace.dynamicClassic,
+          locale: BattleNetLocale.enGB));
+  print(tokenIndexClassic);
+
   /// Fetch connected 'Outland' realm details
   const int connectedRealmId = 1301;
   final ConnectedRealmSearchData connectedRealm =
