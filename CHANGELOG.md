@@ -3,6 +3,7 @@
 * Test coverage increased
 * Documentation examples extended
 * README.md update
+* Dependencies update
 
 ## 0.1.1
 

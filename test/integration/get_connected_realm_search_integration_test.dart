@@ -160,7 +160,7 @@ void main() {
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4474);
+      expect(result.results.first.data.id, 4476);
     });
 
     test('get connected realm search eu', () async {
@@ -218,11 +218,10 @@ void main() {
                 statusType: ServerStatus.UP,
                 realmsTimezone: RealmTimezone.AMERICA_LOS_ANGELES,
                 hasQueue: false,
-                populationType: PopulationType.FULL,
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4647);
+      expect(result.results.first.data.id, 4372);
     });
 
     test('get connected realm us', () async {
