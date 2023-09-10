@@ -2,7 +2,7 @@ import 'package:battle_net/src/battle_net.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:battle_net/src/logger/log_level.dart';
-import 'package:battle_net/src/models/client_credentials_response.dart';
+import 'package:battle_net/src/models/oauth/client_credentials_response.dart';
 import 'package:battle_net/src/models/realm/connected_realm_search_data.dart';
 import 'package:test/test.dart';
 

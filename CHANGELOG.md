@@ -1,3 +1,10 @@
+## 0.1.3
+
+* build authorization uri
+* post authorization code
+* post token validation
+* get user info
+
 ## 0.1.2
 
 * Test coverage increased

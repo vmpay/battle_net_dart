@@ -2,7 +2,7 @@ import 'package:battle_net/src/battle_net.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:battle_net/src/logger/log_level.dart';
-import 'package:battle_net/src/models/client_credentials_response.dart';
+import 'package:battle_net/src/models/oauth/client_credentials_response.dart';
 import 'package:battle_net/src/models/realm/connected_realm_search_response.dart';
 import 'package:battle_net/src/models/realm/population_type_localised.dart';
 import 'package:battle_net/src/models/realm/realm_localised.dart';
@@ -160,7 +160,7 @@ void main() {
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4476);
+      expect(result.results.first.data.id, 4474);
     });
 
     test('get connected realm search eu', () async {

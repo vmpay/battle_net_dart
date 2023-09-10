@@ -22,11 +22,29 @@ You can easily communicate with BattleNet service inside your Flutter/Dart appli
 
 ## Available Features
 
-* Post Client Credentials - Access Token Request. This is the only request necessary for the client 
-credential flow, OAuth's authentication flow intended for application servers.
-* Get Token Index - Returns the WoW Token index.
-* Connected Realm - Returns a connected realm by ID.
-* Connected Realms Search - Performs a search of connected realms.
+### [Battle.net OAuth APIs](https://develop.battle.net/documentation/battle-net/oauth-apis)
+
+* User Authentication
+  * Authorization Request - The authorization request is the first part of the authorization code flow, 
+  OAuth's authentication flow for performing API requests on behalf of a user.
+  * Access Token Request - The access token request is the second part of the authorization code flow.
+  * User Info - Returns basic information about the user associated with the current bearer token.
+* Application Authentication
+  * Post Client Credentials - Access Token Request. This is the only request necessary for the client 
+  credential flow, OAuth's authentication flow intended for application servers.
+* Token Validation
+  * Post Token Validation - Verifies that a given bearer token is valid and retrieves metadata
+  about the token, including the **client_id** used to create the token, expiration timestamp,
+  and scopes granted to the token.
+
+
+### [World of Warcraft Game Data APIs](https://develop.battle.net/documentation/world-of-warcraft/game-data-apis)
+
+* WoW Token API
+  * Get Token Index - Returns the WoW Token index.
+* Connected Realm API
+  * Connected Realm - Returns a connected realm by ID.
+  * Connected Realms Search - Performs a search of connected realms.
 
 ## Getting started
 
