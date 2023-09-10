@@ -145,7 +145,7 @@ class BattleNet {
     }
   }
 
-  /// Returns User Info.
+  /// Returns basic information about the user associated with the current bearer token.
   Future<UserInfoResponse> getUserInfo({
     required String accessToken,
   }) async {
