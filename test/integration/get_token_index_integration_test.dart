@@ -3,7 +3,7 @@ import 'package:battle_net/src/constants/battle_net_locale.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
 import 'package:battle_net/src/logger/log_level.dart';
-import 'package:battle_net/src/models/client_credentials_response.dart';
+import 'package:battle_net/src/models/oauth/client_credentials_response.dart';
 import 'package:battle_net/src/models/token/token_index_response.dart';
 import 'package:test/test.dart';
 

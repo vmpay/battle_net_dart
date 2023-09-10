@@ -1,4 +1,4 @@
-import 'package:battle_net/src/models/client_credentials_response.dart';
+import 'package:battle_net/src/models/oauth/client_credentials_response.dart';
 import 'package:test/test.dart';
 
 void main() {
