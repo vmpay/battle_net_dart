@@ -1,5 +1,4 @@
 import 'package:battle_net/battle_net.dart';
-import 'package:battle_net/src/constants/battle_net_scope.dart';
 import 'package:battle_net/src/models/realm/population_type_localised.dart';
 import 'package:battle_net/src/models/realm/realm_localised.dart';
 import 'package:battle_net/src/models/realm/server_status_localised.dart';

@@ -1,3 +1,7 @@
+## 0.1.3+1
+
+* battle_net_scope.dart exported
+
 ## 0.1.3
 
 * build authorization uri

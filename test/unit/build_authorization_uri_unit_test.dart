@@ -1,5 +1,4 @@
 import 'package:battle_net/battle_net.dart';
-import 'package:battle_net/src/constants/battle_net_scope.dart';
 import 'package:test/test.dart';
 
 import '../integration/credentials.dart';
