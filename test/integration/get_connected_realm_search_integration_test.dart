@@ -160,7 +160,7 @@ void main() {
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4474);
+      expect(result.results.first.data.id, 4467);
     });
 
     test('get connected realm search eu', () async {
@@ -252,7 +252,7 @@ void main() {
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4485);
+      expect(result.results.first.data.id, 4488);
     });
 
     test('get connected realm tw', () async {

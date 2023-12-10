@@ -23,12 +23,14 @@ import 'models/token/token_index_response.dart';
 class BattleNet {
   final String _auth;
   final String _clientId;
+  final int connectionTimeout;
 
   BattleNet({
     required String clientId,
     required String clientSecret,
     LogLevel logLevel = LogLevel.BASIC,
     bool enableReleaseLogging = false,
+    this.connectionTimeout = 10000,
   })  : _clientId = clientId,
         _auth = base64.encode(utf8.encode('$clientId:$clientSecret')) {
     Logger.init(logLevel: logLevel, enableReleaseLogging: enableReleaseLogging);
@@ -48,7 +50,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
@@ -101,7 +104,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
@@ -131,7 +135,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
@@ -158,7 +163,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
@@ -192,7 +198,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
@@ -225,7 +232,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
@@ -264,7 +272,8 @@ class BattleNet {
 
     Logger.logRequest(request: request);
 
-    final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response =
+        await request.send().timeout(Duration(milliseconds: connectionTimeout));
 
     if (response.statusCode == 200) {
       final String body = await response.stream.bytesToString();
