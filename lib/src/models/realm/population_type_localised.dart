@@ -73,15 +73,7 @@ class PopulationTypeLocalised {
 }
 
 /// Enum representing the different types of population statuses for a realm.
-enum PopulationType {
-  LOW,
-  MEDIUM,
-  FULL,
-  HIGH,
-  LOCKED,
-  RECOMMENDED,
-  OFFLINE
-}
+enum PopulationType { LOW, MEDIUM, FULL, HIGH, LOCKED, RECOMMENDED, OFFLINE }
 
 /// A helper class to map population type values to and from strings.
 final EnumValues<PopulationType> populationTypeValues =

@@ -7,37 +7,12 @@ on:
 
 # Publish using the reusable workflow from dart-lang.
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: dart-lang/setup-dart@v1
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Verify formatting
-        run: dart format -o none --set-exit-if-changed .
-
-      - name: Analyze project source
-        run: dart analyze --fatal-infos
-
-      - name: Make shell script write_credentials.sh executable
-        run: chmod +x .github/workflows/write_credentials.sh
-
-      - name: Write down test credentials
-        run:  ./.github/workflows/write_credentials.sh
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-
-      - name: Run tests
-        run: dart test
+  check:
+    uses: ./.github/workflows/main.yml
+    secrets: inherit
 
   publish:
-    needs: build
+    needs: check
     permissions:
       id-token: write # Required for authentication using OIDC
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
