@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
-/// Name data model
+/// A class representing localized names in different languages.
 @immutable
 class NameLocalised {
+  /// Creates an instance of [NameLocalised].
+  ///
+  /// All fields are required.
   const NameLocalised({
     required this.itIt,
     required this.ruRu,
@@ -20,19 +23,46 @@ class NameLocalised {
     required this.deDe,
   });
 
+  /// Italian (Italy) localized name.
   final String? itIt;
+
+  /// Russian (Russia) localized name.
   final String ruRu;
+
+  /// English (Great Britain) localized name.
   final String enGb;
+
+  /// Chinese (Taiwan) localized name.
   final String zhTw;
+
+  /// Korean (Korea) localized name.
   final String koKr;
+
+  /// English (United States) localized name.
   final String enUs;
+
+  /// Spanish (Mexico) localized name.
   final String esMx;
+
+  /// Portuguese (Brazil) localized name.
   final String ptBr;
+
+  /// Spanish (Spain) localized name.
   final String esEs;
+
+  /// Chinese (China) localized name.
   final String zhCn;
+
+  /// French (France) localized name.
   final String frFr;
+
+  /// German (Germany) localized name.
   final String deDe;
 
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
   NameLocalised copyWith({
     String? itIt,
     String? ruRu,
@@ -62,11 +92,14 @@ class NameLocalised {
         deDe: deDe ?? this.deDe,
       );
 
+  /// Creates an instance of [NameLocalised] from a JSON string.
   factory NameLocalised.fromRawJson(String str) =>
       NameLocalised.fromJson(json.decode(str));
 
+  /// Converts this instance to a JSON string.
   String toRawJson() => json.encode(toJson());
 
+  /// Creates an instance of [NameLocalised] from a JSON map.
   factory NameLocalised.fromJson(Map<String, dynamic> json) => NameLocalised(
         itIt: json['it_IT'],
         ruRu: json['ru_RU'],
@@ -82,6 +115,7 @@ class NameLocalised {
         deDe: json['de_DE'],
       );
 
+  /// Converts this instance to a JSON map.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'it_IT': itIt,
         'ru_RU': ruRu,

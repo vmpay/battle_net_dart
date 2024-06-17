@@ -5,9 +5,27 @@ import 'package:meta/meta.dart';
 
 import 'connected_realm_result.dart';
 
-/// Connected realm search data model
+/// A class that represents the response from a connected realm search.
 @immutable
 class ConnectedRealmSearchResponse {
+  /// The current page number of the search results.
+  final int page;
+
+  /// The number of results per page.
+  final int pageSize;
+
+  /// The maximum number of results per page.
+  final int maxPageSize;
+
+  /// The total number of pages of results.
+  final int pageCount;
+
+  /// The list of search results for connected realms.
+  final List<ConnectedRealmResult> results;
+
+  /// Creates an instance of [ConnectedRealmSearchResponse].
+  ///
+  /// All fields are required.
   const ConnectedRealmSearchResponse({
     required this.page,
     required this.pageSize,
@@ -16,12 +34,10 @@ class ConnectedRealmSearchResponse {
     required this.results,
   });
 
-  final int page;
-  final int pageSize;
-  final int maxPageSize;
-  final int pageCount;
-  final List<ConnectedRealmResult> results;
-
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
   ConnectedRealmSearchResponse copyWith({
     int? page,
     int? pageSize,
@@ -37,11 +53,14 @@ class ConnectedRealmSearchResponse {
         results: results ?? this.results,
       );
 
+  /// Creates an instance of [ConnectedRealmSearchResponse] from a JSON string.
   factory ConnectedRealmSearchResponse.fromRawJson(String str) =>
       ConnectedRealmSearchResponse.fromJson(json.decode(str));
 
+  /// Converts this instance to a JSON string.
   String toRawJson() => json.encode(toJson());
 
+  /// Creates an instance of [ConnectedRealmSearchResponse] from a JSON map.
   factory ConnectedRealmSearchResponse.fromJson(Map<String, dynamic> json) =>
       ConnectedRealmSearchResponse(
         page: json['page'],
@@ -52,6 +71,7 @@ class ConnectedRealmSearchResponse {
             .map((dynamic x) => ConnectedRealmResult.fromJson(x))),
       );
 
+  /// Converts this instance to a JSON map.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'page': page,
         'pageSize': pageSize,

@@ -8,14 +8,30 @@ import 'package:meta/meta.dart';
 /// In case of client credentials flow token [userName] is null
 @immutable
 class CheckTokenResponse {
+  /// The username associated with the token.
   final String? userName;
+
+  /// A list of scopes that the token is valid for.
   final List<BattleNetScope> scope;
+
+  /// A list of authorities associated with the user's account.
   final List<String> accountAuthorities;
+
+  /// The expiration time of the token, represented as a Unix timestamp.
   final int exp;
+
+  /// A list of authorities associated with the client.
   final List<String> clientAuthorities;
+
+  /// A list of authorities granted to the token.
   final List<String> authorities;
+
+  /// The client ID associated with the token.
   final String clientId;
 
+  /// Creates an instance of [CheckTokenResponse].
+  ///
+  /// All fields are required.
   const CheckTokenResponse({
     required this.userName,
     required this.scope,
@@ -26,6 +42,10 @@ class CheckTokenResponse {
     required this.clientId,
   });
 
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
   CheckTokenResponse copyWith({
     String? userName,
     List<BattleNetScope>? scope,
@@ -45,11 +65,14 @@ class CheckTokenResponse {
         clientId: clientId ?? this.clientId,
       );
 
+  /// Creates an instance of [CheckTokenResponse] from a JSON string.
   factory CheckTokenResponse.fromRawJson(String str) =>
       CheckTokenResponse.fromJson(json.decode(str));
 
+  /// Converts this instance to a JSON string.
   String toRawJson() => json.encode(toJson());
 
+  /// Creates an instance of [CheckTokenResponse] from a JSON map.
   factory CheckTokenResponse.fromJson(Map<String, dynamic> json) =>
       CheckTokenResponse(
         userName: json['user_name'],
@@ -66,6 +89,7 @@ class CheckTokenResponse {
         clientId: json['client_id'],
       );
 
+  /// Converts this instance to a JSON map.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'user_name': userName,
         'scope': List<dynamic>.from(scope.map((BattleNetScope x) => x.name)),

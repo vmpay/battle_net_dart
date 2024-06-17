@@ -7,9 +7,12 @@ import 'name_localised.dart';
 import 'realm_type_localised.dart';
 import 'region_localised.dart';
 
-/// Realm data model
+/// A class representing localized realm data.
 @immutable
 class RealmLocalised {
+  /// Creates an instance of [RealmLocalised].
+  ///
+  /// All fields are required.
   const RealmLocalised({
     required this.isTournament,
     required this.timezone,
@@ -22,16 +25,37 @@ class RealmLocalised {
     required this.slug,
   });
 
+  /// Indicates if the realm is a tournament realm.
   final bool isTournament;
+
+  /// The timezone of the realm.
   final RealmTimezone timezone;
+
+  /// The localized name of the realm.
   final NameLocalised name;
+
+  /// The unique identifier of the realm.
   final int id;
+
+  /// The region of the realm.
   final RegionLocalised region;
+
+  /// The category of the realm.
   final NameLocalised category;
+
+  /// The locale of the realm.
   final RealmLocale locale;
+
+  /// The type of the realm.
   final RealmTypeLocalised type;
+
+  /// The unique slug of the realm.
   final String slug;
 
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
   RealmLocalised copyWith({
     bool? isTournament,
     RealmTimezone? timezone,
@@ -55,11 +79,14 @@ class RealmLocalised {
         slug: slug ?? this.slug,
       );
 
+  /// Creates an instance of [RealmLocalised] from a JSON string.
   factory RealmLocalised.fromRawJson(String str) =>
       RealmLocalised.fromJson(json.decode(str));
 
+  /// Converts this instance to a JSON string.
   String toRawJson() => json.encode(toJson());
 
+  /// Creates an instance of [RealmLocalised] from a JSON map.
   factory RealmLocalised.fromJson(Map<String, dynamic> json) => RealmLocalised(
         isTournament: json['is_tournament'],
         timezone: realmTimezoneValues.map[json['timezone']]!,
@@ -72,6 +99,7 @@ class RealmLocalised {
         slug: json['slug'],
       );
 
+  /// Converts this instance to a JSON map.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'is_tournament': isTournament,
         'timezone': realmTimezoneValues.reverse[timezone],
@@ -117,6 +145,7 @@ class RealmLocalised {
       slug.hashCode;
 }
 
+/// Enum representing the different locales supported for realms.
 enum RealmLocale {
   FR_FR,
   DE_DE,
@@ -132,6 +161,7 @@ enum RealmLocale {
   ZH_TW,
 }
 
+/// A mapping of string values to [RealmLocale] enums.
 final EnumValues<RealmLocale> realmLocaleValues =
     EnumValues<RealmLocale>(<String, RealmLocale>{
   'deDE': RealmLocale.DE_DE,
@@ -148,6 +178,7 @@ final EnumValues<RealmLocale> realmLocaleValues =
   'zhTW': RealmLocale.ZH_TW,
 });
 
+/// Enum representing the different timezones for realms.
 enum RealmTimezone {
   EUROPE_PARIS,
   ASIA_SEOUL,
@@ -160,6 +191,7 @@ enum RealmTimezone {
   AUSTRALIA_MELBOURNE,
 }
 
+/// A mapping of string values to [RealmTimezone] enums.
 final EnumValues<RealmTimezone> realmTimezoneValues =
     EnumValues<RealmTimezone>(<String, RealmTimezone>{
   'Europe/Paris': RealmTimezone.EUROPE_PARIS,
