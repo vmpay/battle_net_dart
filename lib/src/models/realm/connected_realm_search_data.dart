@@ -7,9 +7,27 @@ import 'population_type_localised.dart';
 import 'realm_localised.dart';
 import 'server_status_localised.dart';
 
-/// Connected realm response model
+/// A class that represents the data associated with a connected realm search.
 @immutable
 class ConnectedRealmSearchData {
+  /// The list of localized realms associated with the connected realm.
+  final List<RealmLocalised> realms;
+
+  /// The unique identifier for the connected realm.
+  final int id;
+
+  /// Indicates if there is a queue to enter the realm.
+  final bool hasQueue;
+
+  /// The status of the server.
+  final ServerStatusLocalised status;
+
+  /// The population type of the server.
+  final PopulationTypeLocalised population;
+
+  /// Creates an instance of [ConnectedRealmSearchData].
+  ///
+  /// All fields are required.
   const ConnectedRealmSearchData({
     required this.realms,
     required this.id,
@@ -18,12 +36,10 @@ class ConnectedRealmSearchData {
     required this.population,
   });
 
-  final List<RealmLocalised> realms;
-  final int id;
-  final bool hasQueue;
-  final ServerStatusLocalised status;
-  final PopulationTypeLocalised population;
-
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
   ConnectedRealmSearchData copyWith({
     List<RealmLocalised>? realms,
     int? id,
@@ -39,11 +55,14 @@ class ConnectedRealmSearchData {
         population: population ?? this.population,
       );
 
+  /// Creates an instance of [ConnectedRealmSearchData] from a JSON string.
   factory ConnectedRealmSearchData.fromRawJson(String str) =>
       ConnectedRealmSearchData.fromJson(json.decode(str));
 
+  /// Converts this instance to a JSON string.
   String toRawJson() => json.encode(toJson());
 
+  /// Creates an instance of [ConnectedRealmSearchData] from a JSON map.
   factory ConnectedRealmSearchData.fromJson(Map<String, dynamic> json) =>
       ConnectedRealmSearchData(
         realms: List<RealmLocalised>.from(
@@ -54,6 +73,7 @@ class ConnectedRealmSearchData {
         population: PopulationTypeLocalised.fromJson(json['population']),
       );
 
+  /// Converts this instance to a JSON map.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'realms': List<dynamic>.from(realms.map((dynamic x) => x.toJson())),
         'id': id,

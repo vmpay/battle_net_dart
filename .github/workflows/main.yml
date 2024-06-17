@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Quality check
 
 # Controls when the action will run.
 on:
@@ -13,10 +13,18 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Reusable workflow call
+  workflow_call:
+    secrets:
+      CLIENT_ID:
+        required: true
+      CLIENT_SECRET:
+        required: true
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  check:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -57,3 +65,11 @@ jobs:
       # want to change this to 'flutter test'.
       - name: Run tests
         run: dart test
+
+      # The pub.dev site uses the analysis tool pana to calculate pub points.
+      # This is run automatically on the pub.dev site whenever you publish a new package,
+      # or a new version of an existing package.
+      - name: Calculating pub points prior to publishing
+        run: |
+          dart pub global activate pana
+          dart pub global run pana --exit-code-threshold 0 --json

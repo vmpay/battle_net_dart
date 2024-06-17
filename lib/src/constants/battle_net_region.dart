@@ -6,7 +6,6 @@ enum BattleNetRegion {
   eu,
   kr,
   tw,
-  cn,
 }
 
 /// [BattleNetRegion] query and title parameters mapper
@@ -21,8 +20,6 @@ extension BattleNetRegionExtension on BattleNetRegion {
         return 'kr';
       case BattleNetRegion.tw:
         return 'tw';
-      case BattleNetRegion.cn:
-        return 'cn';
     }
   }
 
@@ -36,8 +33,6 @@ extension BattleNetRegionExtension on BattleNetRegion {
         return 'Korea';
       case BattleNetRegion.tw:
         return 'Taiwan';
-      case BattleNetRegion.cn:
-        return 'China';
     }
   }
 }

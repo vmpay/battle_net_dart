@@ -8,13 +8,27 @@ import 'package:meta/meta.dart';
 /// the Authorization Code flow
 @immutable
 class AuthorizationCodeResponse {
+  /// The access token issued by the authorization server.
   final String accessToken;
+
+  /// The type of the token issued, typically "Bearer".
   final String tokenType;
+
+  /// The duration in seconds for which the access token is valid.
   final int expiresIn;
+
+  /// A list of scopes that the access token is valid for.
   final List<BattleNetScope> scope;
+
+  /// The subject (sub) identifier, representing the user.
   final String sub;
+
+  /// The ID token issued by the authorization server.
   final String idToken;
 
+  /// Creates an instance of [AuthorizationCodeResponse].
+  ///
+  /// All fields are required.
   const AuthorizationCodeResponse({
     required this.accessToken,
     required this.tokenType,
@@ -24,6 +38,10 @@ class AuthorizationCodeResponse {
     required this.idToken,
   });
 
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
   AuthorizationCodeResponse copyWith({
     String? accessToken,
     String? tokenType,
@@ -41,11 +59,14 @@ class AuthorizationCodeResponse {
         idToken: idToken ?? this.idToken,
       );
 
+  /// Creates an instance of [AuthorizationCodeResponse] from a JSON string.
   factory AuthorizationCodeResponse.fromRawJson(String str) =>
       AuthorizationCodeResponse.fromJson(json.decode(str));
 
+  /// Converts this instance to a JSON string.
   String toRawJson() => json.encode(toJson());
 
+  /// Creates an instance of [AuthorizationCodeResponse] from a JSON map.
   factory AuthorizationCodeResponse.fromJson(Map<String, dynamic> json) =>
       AuthorizationCodeResponse(
         accessToken: json['access_token'],
@@ -60,6 +81,7 @@ class AuthorizationCodeResponse {
         idToken: json['id_token'],
       );
 
+  /// Converts this instance to a JSON map.
   Map<String, dynamic> toJson() => <String, dynamic>{
         'access_token': accessToken,
         'token_type': tokenType,
