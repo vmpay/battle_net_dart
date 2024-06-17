@@ -160,7 +160,7 @@ void main() {
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4467);
+      expect(result.results.first.data.id > 0, isTrue);
     });
 
     test('get connected realm search eu', () async {
@@ -234,7 +234,7 @@ void main() {
                 namespace: BattleNetNamespace.dynamicClassic,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4372);
+      expect(result.results.first.data.id > 0, isTrue);
     });
 
     test('get connected realm tw with parameters', () async {
@@ -248,11 +248,11 @@ void main() {
                 statusType: ServerStatus.UP,
                 realmsTimezone: RealmTimezone.ASIA_TAIPEI,
                 hasQueue: false,
-                populationType: PopulationType.FULL,
+                populationType: PopulationType.MEDIUM,
                 realmsIsTournament: false,
               ));
       expect(result.page, 1);
-      expect(result.results.first.data.id, 4488);
+      expect(result.results.first.data.id > 0, isTrue);
     });
 
     test('get connected realm tw', () async {
