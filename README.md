@@ -130,7 +130,6 @@ Locale support is limited to locations supported on Blizzard community game site
 | EU     | Battle.net, WoW, D3, SC2 |
 | KR     | Battle.net, WoW, D3, SC2 |
 | TW     | Battle.net, WoW, D3, SC2 |
-| CN     | Battle.net, WoW, D3, SC2 |
 
 For example,
 ```dart
@@ -148,7 +147,6 @@ locales vary from region to region and align with those supported on Blizzard co
 | Europe        | https://eu.api.blizzard.com/       | en_GB, es_ES, fr_FR, ru_RU, de_DE, pt_PT, it_IT |
 | Korea         | https://kr.api.blizzard.com/       | ko_KR                                           |
 | Taiwan        | https://tw.api.blizzard.com/       | zh_TW                                           |
-| China         | https://gateway.battlenet.com.cn/  | zh_CN                                           |
 
 For example,
 ```dart

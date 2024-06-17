@@ -1,7 +1,12 @@
+## 0.2.0
+
+* Remove CN region (breaking change)
+* Update documentation
+
 ## 0.1.3+2
 
 * Connection timeout parameter
-* 
+
 ## 0.1.3+1
 
 * battle_net_scope.dart exported

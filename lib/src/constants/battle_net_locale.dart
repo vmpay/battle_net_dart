@@ -13,7 +13,6 @@ enum BattleNetLocale {
   ruRU,
   koKR,
   zhTW,
-  zhCN,
 }
 
 /// [BattleNetLocale] query parameter mapper
@@ -42,8 +41,6 @@ extension BattleNetLocaleExtension on BattleNetLocale {
         return 'ko_KR';
       case BattleNetLocale.zhTW:
         return 'zh_TW';
-      case BattleNetLocale.zhCN:
-        return 'zh_CN';
     }
   }
 }

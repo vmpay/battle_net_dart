@@ -189,9 +189,7 @@ class BattleNet {
       'Authorization': 'Bearer $accessToken',
       'Battlenet-Namespace': '${namespace.name}-${region.slug}'
     };
-    final String baseUrl = region == BattleNetRegion.cn
-        ? 'gateway.battlenet.com.cn'
-        : '${region.slug}.api.blizzard.com';
+    final String baseUrl = '${region.slug}.api.blizzard.com';
     final http.Request request = http.Request('GET',
         Uri.parse('https://$baseUrl/data/wow/token/?locale=${locale.name}'));
     request.headers.addAll(headers);
