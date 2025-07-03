@@ -60,15 +60,44 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: Run tests
-        run: dart test
+      - name: Install dependencies tests with coverage
+        run: dart pub global activate coverage
+
+      - name: Run tests with coverage
+        run: dart pub global run coverage:test_with_coverage
+
+      - name: Install LCOV
+        run: sudo apt-get update && sudo apt-get install -y lcov
+
+      - name: Generate coverage report
+        run: genhtml coverage/lcov.info --output-directory coverage/html
+
+      - name: Check coverage percentage
+        id: check_coverage
+        run: |
+          LINES_FOUND=$(grep -E '^LF:' coverage/lcov.info | awk -F':' '{s+=$2} END {print s}')
+          LINES_HIT=$(grep -E '^LH:' coverage/lcov.info | awk -F':' '{s+=$2} END {print s}')
+          if [ -z "$LINES_FOUND" ] || [ "$LINES_FOUND" -eq 0 ]; then
+            COVERAGE_PERCENTAGE=0.0
+          else
+            COVERAGE_PERCENTAGE=$(echo "scale=2; ($LINES_HIT / $LINES_FOUND) * 100" | bc -l)
+          fi
+          echo "Overall coverage: $COVERAGE_PERCENTAGE%"
+          if (( $(echo "$COVERAGE_PERCENTAGE < 90.0" | bc -l) )); then
+            echo "Code coverage is below 90%! Failing pipeline."
+            exit 1
+          fi
 
       # The pub.dev site uses the analysis tool pana to calculate pub points.
       # This is run automatically on the pub.dev site whenever you publish a new package,
       # or a new version of an existing package.
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
       - name: Calculating pub points prior to publishing
         run: |
           dart pub global activate pana

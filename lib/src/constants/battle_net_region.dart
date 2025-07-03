@@ -2,14 +2,22 @@
 /// through us.battle.net only contain data from US battlegroups and realms.
 /// Locale support is limited to locations supported on Blizzard community game sites.
 enum BattleNetRegion {
+  /// North America region.
   us,
+
+  /// Europe region.
   eu,
+
+  /// Korea region.
   kr,
+
+  /// Taiwan region.
   tw,
 }
 
-/// [BattleNetRegion] query and title parameters mapper
+/// Extension on [BattleNetRegion] to provide slug and name representations.
 extension BattleNetRegionExtension on BattleNetRegion {
+  /// Returns the slug representation of the [BattleNetRegion] enum value.
   String get slug {
     switch (this) {
       case BattleNetRegion.us:
@@ -23,6 +31,7 @@ extension BattleNetRegionExtension on BattleNetRegion {
     }
   }
 
+  /// Returns the full name representation of the [BattleNetRegion] enum value.
   String get name {
     switch (this) {
       case BattleNetRegion.us:

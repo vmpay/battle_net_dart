@@ -11,6 +11,8 @@ class EnumValues<T> {
   late Map<T, String> reverseMap;
 
   /// Constructs an [EnumValues] instance with a [map] of string keys to enum values [T].
+  ///
+  /// [map] A map where keys are string representations and values are enum members.
   EnumValues(this.map);
 
   /// Returns a map that associates enum values [T] with their corresponding string keys.

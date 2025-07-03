@@ -11,9 +11,13 @@ class Self {
   /// Constructs a [Self] instance.
   ///
   /// The [href] parameter is required and represents the URL string.
-  const Self({
-    required this.href,
-  });
+  const Self({required this.href});
+
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
+  Self copyWith({String? href}) => Self(href: href ?? this.href);
 
   /// The URL string that references itself.
   final String href;
@@ -34,16 +38,12 @@ class Self {
   ///
   /// Constructs a [Self] instance from a map retrieved from JSON,
   /// extracting the [href] as a string.
-  factory Self.fromJson(Map<String, dynamic> json) => Self(
-        href: json['href'],
-      );
+  factory Self.fromJson(Map<String, dynamic> json) => Self(href: json['href']);
 
   /// Converts this [Self] instance to a JSON map.
   ///
   /// Converts the instance's [href] directly to a JSON-compatible format.
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'href': href,
-      };
+  Map<String, dynamic> toJson() => <String, dynamic>{'href': href};
 
   @override
   String toString() {

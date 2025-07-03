@@ -15,8 +15,9 @@ enum BattleNetLocale {
   zhTW,
 }
 
-/// [BattleNetLocale] query parameter mapper
+/// Extension on [BattleNetLocale] to provide the string representation of the locale.
 extension BattleNetLocaleExtension on BattleNetLocale {
+  /// Returns the string representation of the [BattleNetLocale] enum value.
   String get name {
     switch (this) {
       case BattleNetLocale.enUS:

@@ -4,14 +4,22 @@
 /// and BattleTag. To get any more specific user information, an application
 /// needs to request permission from the user with scopes.
 enum BattleNetScope {
+  /// World of Warcraft profile scope.
   wowProfile,
+
+  /// StarCraft II profile scope.
   sc2Profile,
+
+  /// Diablo III profile scope.
   d3Profile,
+
+  /// OpenID scope.
   openid,
 }
 
-/// [BattleNetScope] query parameter mapper
+/// Extension on [BattleNetScope] to provide the string representation of the scope.
 extension BattleNetScopeExtension on BattleNetScope {
+  /// Returns the string representation of the [BattleNetScope] enum value.
   String get name {
     switch (this) {
       case BattleNetScope.wowProfile:

@@ -13,12 +13,17 @@ and the Flutter guide for
 Dart wrapper client for [Battle.Net API](https://develop.battle.net/documentation)
 
 ![workflow](https://github.com/vmpay/battle_net_dart/actions/workflows/main.yml/badge.svg)
+[![codecov](https://codecov.io/github/vmpay/battle_net_dart/graph/badge.svg?token=H0S7UH54MS)](https://codecov.io/github/vmpay/battle_net_dart)
 [![GitHub](https://img.shields.io/github/license/vmpay/battle_net_dart?color=salad&logo=github)](https://github.com/vmpay/battle_net_dart/blob/master/LICENSE)
 [![Pub](https://img.shields.io/pub/v/battle_net.svg?logo=dart&logoColor=blue)](https://pub.dev/packages/battle_net)
 [![package publisher](https://img.shields.io/pub/publisher/battle_net.svg?logo=dart&logoColor=blue)](https://pub.dev/packages/battle_net/publisher)
 [![Pub Points](https://img.shields.io/pub/points/battle_net?logo=flutter&logoColor=lightblue)](https://pub.dev/packages/battle_net)
 
 You can easily communicate with BattleNet service inside your Flutter/Dart application.   
+
+## Code Quality
+
+This library now boasts significantly increased unit and integration test coverage, ensuring the reliability and stability of the Battle.net API client. A continuous integration (CI/CD) pipeline is in place to enforce a minimum of 90% code coverage, automatically failing builds if this threshold is not met.
 
 ## Available Features
 
@@ -45,6 +50,13 @@ You can easily communicate with BattleNet service inside your Flutter/Dart appli
 * Connected Realm API
   * Connected Realm - Returns a connected realm by ID.
   * Connected Realms Search - Performs a search of connected realms.
+* Mythic Keystone Dungeon API
+  * Get Mythic Keystone Periods Index - Returns an index of Mythic Keystone periods.
+  * Get Mythic Keystone Period - Returns a Mythic Keystone period by ID.
+* Mythic Keystone Affix API
+  * Get Mythic Keystone Affixes Index - Returns an index of Mythic Keystone affixes.
+  * Get Mythic Keystone Affix - Returns a Mythic Keystone affix by ID.
+  * Get Mythic Keystone Affix Media - Returns media for a Mythic Keystone affix by ID.
 
 ## Getting started
 
@@ -114,6 +126,70 @@ final ConnectedRealmSearchResponse result =
       hasQueue: false,
       populationType: PopulationType.FULL,
       realmsIsTournament: false,
+);
+```
+
+### Mythic Keystone Dungeon API
+
+#### Get Mythic Keystone Periods Index
+
+```dart
+final MythicKeystonePeriodsIndexResponse mythicKeystonePeriodsIndex =
+    await battleNet.getMythicKeystonePeriodsIndex(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  namespace: BattleNetNamespace.dynamic,
+);
+```
+
+#### Get Mythic Keystone Period
+
+```dart
+const int periodId = 641; // Example period ID
+final MythicKeystonePeriodResponse mythicKeystonePeriod =
+    await battleNet.getMythicKeystonePeriod(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  namespace: BattleNetNamespace.dynamic,
+  id: periodId,
+);
+```
+
+### Mythic Keystone Affix API
+
+#### Get Mythic Keystone Affixes Index
+
+```dart
+final MythicKeystoneAffixesIndexResponse mythicKeystoneAffixesIndex =
+    await battleNet.getMythicKeystoneAffixesIndex(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  namespace: BattleNetNamespace.dynamic,
+);
+```
+
+#### Get Mythic Keystone Affix
+
+```dart
+const int affixId = 1; // Example affix ID
+final MythicKeystoneAffixResponse mythicKeystoneAffix =
+    await battleNet.getMythicKeystoneAffix(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  namespace: BattleNetNamespace.dynamic,
+  id: affixId,
+);
+```
+
+#### Get Mythic Keystone Affix Media
+
+```dart
+final MythicKeystoneAffixMediaResponse mythicKeystoneAffixMedia =
+    await battleNet.getMythicKeystoneAffixMedia(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  namespace: BattleNetNamespace.dynamic,
+  id: affixId,
 );
 ```
 
