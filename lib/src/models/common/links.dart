@@ -13,9 +13,13 @@ class Links {
   /// Constructs a [Links] instance.
   ///
   /// The [self] parameter is required and represents a self-reference URL instance.
-  const Links({
-    required this.self,
-  });
+  const Links({required this.self});
+
+  /// Returns a copy of this instance with the given fields replaced
+  /// by new values.
+  ///
+  /// If a field is not provided, the existing value is retained.
+  Links copyWith({Self? self}) => Links(self: self ?? this.self);
 
   /// The self-reference URL instance.
   final Self self;
@@ -36,16 +40,13 @@ class Links {
   ///
   /// Constructs a [Links] instance from a map retrieved from JSON,
   /// extracting the [self] as a [Self] instance.
-  factory Links.fromJson(Map<String, dynamic> json) => Links(
-        self: Self.fromJson(json['self']),
-      );
+  factory Links.fromJson(Map<String, dynamic> json) =>
+      Links(self: Self.fromJson(json['self']));
 
   /// Converts this [Links] instance to a JSON map.
   ///
   /// Converts the instance's [self] to a JSON-compatible format.
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'self': self.toJson(),
-      };
+  Map<String, dynamic> toJson() => <String, dynamic>{'self': self.toJson()};
 
   @override
   String toString() {

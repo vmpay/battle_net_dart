@@ -1,3 +1,15 @@
+## 0.3.0
+
+* Increased unit and integration test coverage for OAuth, connected realm models, logger, and WoW game data models.
+* Added CI/CD pipeline check for 90% code coverage, failing the build if coverage drops below this threshold.
+* Integrated Codecov for continuous code coverage reporting and added Codecov badge to README.md.
+* Dependencies upgraded.
+* Implemented Mythic Keystone Periods Index API.
+* Implemented Mythic Keystone Period API.
+* Implemented Mythic Keystone Affixes Index API.
+* Implemented Mythic Keystone Affix API.
+* Implemented Mythic Keystone Affix Media API.
+
 ## 0.2.0
 
 * Remove CN region (breaking change)

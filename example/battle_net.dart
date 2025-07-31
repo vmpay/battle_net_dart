@@ -1,17 +1,16 @@
 import 'package:battle_net/battle_net.dart';
-import 'package:battle_net/src/models/realm/population_type_localised.dart';
-import 'package:battle_net/src/models/realm/realm_localised.dart';
-import 'package:battle_net/src/models/realm/server_status_localised.dart';
 
 /// This example shows how to fetch [TokenResponse] data with additional information
 Future<void> main() async {
   /// Provide client id and client secret
-  final BattleNet battleNet =
-      BattleNet(clientId: 'clientId', clientSecret: 'clientSecret');
+  final BattleNet battleNet = BattleNet(
+    clientId: 'clientId',
+    clientSecret: 'clientSecret',
+  );
 
   /// Fetch access token providing region of the data to retrieve
-  final ClientCredentialsResponse clientCredentialsResponse =
-      await battleNet.postClientCredentials();
+  final ClientCredentialsResponse clientCredentialsResponse = await battleNet
+      .postClientCredentials();
 
   /// Verifies that a given bearer token is valid and retrieves metadata
   /// about the token
@@ -21,46 +20,51 @@ Future<void> main() async {
 
   /// Fetch Token index price for EU region Retail version
   final TokenIndexResponse tokenIndex = await battleNet.getTokenIndex(
-      accessToken: clientCredentialsResponse.accessToken,
-      region: BattleNetRegion.eu,
-      namespace: BattleNetNamespace.dynamic,
-      locale: BattleNetLocale.enGB);
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    namespace: BattleNetNamespace.dynamic,
+    locale: BattleNetLocale.enGB,
+  );
   print(tokenIndex);
 
   /// Fetch Token index price for EU region Classic version
   final TokenIndexResponse tokenIndexClassic = await battleNet
       .postClientCredentials()
-      .then((ClientCredentialsResponse response) => battleNet.getTokenIndex(
+      .then(
+        (ClientCredentialsResponse response) => battleNet.getTokenIndex(
           accessToken: response.accessToken,
           region: BattleNetRegion.eu,
           namespace: BattleNetNamespace.dynamicClassic,
-          locale: BattleNetLocale.enGB));
+          locale: BattleNetLocale.enGB,
+        ),
+      );
   print(tokenIndexClassic);
 
   /// Performs a search of connected realms
   final ConnectedRealmSearchResponse connectedRealmSearchResponse =
       await battleNet.postClientCredentials().then(
-          (ClientCredentialsResponse value) =>
-              battleNet.getConnectedRealmSearch(
-                accessToken: value.accessToken,
-                region: BattleNetRegion.eu,
-                namespace: BattleNetNamespace.dynamicClassic,
-                statusType: ServerStatus.UP,
-                realmsTimezone: RealmTimezone.EUROPE_PARIS,
-                hasQueue: false,
-                populationType: PopulationType.FULL,
-                realmsIsTournament: false,
-              ));
+        (ClientCredentialsResponse value) => battleNet.getConnectedRealmSearch(
+          accessToken: value.accessToken,
+          region: BattleNetRegion.eu,
+          namespace: BattleNetNamespace.dynamicClassic,
+          statusType: ServerStatus.UP,
+          realmsTimezone: RealmTimezone.EUROPE_PARIS,
+          hasQueue: false,
+          populationType: PopulationType.FULL,
+          realmsIsTournament: false,
+        ),
+      );
   print(connectedRealmSearchResponse);
 
   /// Fetch connected 'Outland' realm details
   const int connectedRealmId = 1301;
-  final ConnectedRealmSearchData connectedRealm =
-      await battleNet.getConnectedRealm(
-          accessToken: clientCredentialsResponse.accessToken,
-          region: BattleNetRegion.eu,
-          namespace: BattleNetNamespace.dynamic,
-          id: connectedRealmId);
+  final ConnectedRealmSearchData connectedRealm = await battleNet
+      .getConnectedRealm(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        namespace: BattleNetNamespace.dynamic,
+        id: connectedRealmId,
+      );
   print(connectedRealm);
 
   /// Authorization Code Flow
@@ -86,6 +90,64 @@ Future<void> main() async {
 
   /// Returns basic information about the user associated with the current bearer token
   final UserInfoResponse userInfo = await battleNet.getUserInfo(
-      accessToken: authorizationCodeResponse.accessToken);
+    accessToken: authorizationCodeResponse.accessToken,
+  );
   print(userInfo);
+
+  /// Mythic Keystone Dungeon API
+  /// Get Mythic Keystone Periods Index
+  final MythicKeystonePeriodsIndexResponse mythicKeystonePeriodsIndex =
+      await battleNet.getMythicKeystonePeriodsIndex(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        namespace: BattleNetNamespace.dynamic,
+        locale: BattleNetLocale.enGB,
+      );
+  print(mythicKeystonePeriodsIndex);
+
+  /// Get Mythic Keystone Period by ID
+  const int periodId = 641; // Example period ID
+  final MythicKeystonePeriodResponse mythicKeystonePeriod = await battleNet
+      .getMythicKeystonePeriod(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        namespace: BattleNetNamespace.dynamic,
+        periodId: periodId,
+        locale: BattleNetLocale.enGB,
+      );
+  print(mythicKeystonePeriod);
+
+  /// Mythic Keystone Affix API
+  /// Get Mythic Keystone Affixes Index
+  final MythicKeystoneAffixesIndexResponse mythicKeystoneAffixesIndex =
+      await battleNet.getMythicKeystoneAffixesIndex(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        namespace: BattleNetNamespace.dynamic,
+        locale: BattleNetLocale.enGB,
+      );
+  print(mythicKeystoneAffixesIndex);
+
+  /// Get Mythic Keystone Affix by ID
+  const int affixId = 1; // Example affix ID
+  final MythicKeystoneAffixResponse mythicKeystoneAffix = await battleNet
+      .getMythicKeystoneAffix(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        namespace: BattleNetNamespace.dynamic,
+        keystoneAffixId: affixId,
+        locale: BattleNetLocale.enGB,
+      );
+  print(mythicKeystoneAffix);
+
+  /// Get Mythic Keystone Affix Media by ID
+  final MythicKeystoneAffixMediaResponse mythicKeystoneAffixMedia =
+      await battleNet.getMythicKeystoneAffixMedia(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        namespace: BattleNetNamespace.dynamic,
+        keystoneAffixId: affixId,
+        locale: BattleNetLocale.enGB,
+      );
+  print(mythicKeystoneAffixMedia);
 }
