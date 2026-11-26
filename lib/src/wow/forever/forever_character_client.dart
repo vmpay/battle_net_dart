@@ -26,7 +26,7 @@ class ForeverCharacterClient {
       _httpClient = client ?? http.Client();
 
   // -------------------------------------------------------------------------
-  // Internal helper — calls doGet and translates 404+BLZWEBAPI00000404 into
+  // Internal helper. `doGet` translates 404 + BLZWEBAPI00000404 into
   // BattleNetNotFoundException.
   // -------------------------------------------------------------------------
   Future<T> _get<T>({
@@ -36,26 +36,16 @@ class ForeverCharacterClient {
     required BattleNetLocale locale,
     required String path,
     required T Function(String) parser,
-  }) async {
-    try {
-      return await doGet(
-        client: _httpClient,
-        connectionTimeout: _connectionTimeout,
-        accessToken: accessToken,
-        region: region,
-        namespace: namespace,
-        queryParameters: <String, String?>{'locale': locale.name},
-        path: path,
-        parser: parser,
-      );
-    } on Exception catch (e) {
-      final String msg = e.toString();
-      if (msg.contains('404') && msg.contains('BLZWEBAPI00000404')) {
-        throw BattleNetNotFoundException(url: path, body: msg);
-      }
-      rethrow;
-    }
-  }
+  }) => doGet(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: path,
+    parser: parser,
+  );
 
   String _charPath(ForeverCharacterSlug slug) =>
       '$_profileBasePath/${slug.value}';

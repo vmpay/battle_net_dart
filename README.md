@@ -57,6 +57,16 @@ This library now boasts significantly increased unit and integration test covera
   * Get Mythic Keystone Affixes Index - Returns an index of Mythic Keystone affixes.
   * Get Mythic Keystone Affix - Returns a Mythic Keystone affix by ID.
   * Get Mythic Keystone Affix Media - Returns media for a Mythic Keystone affix by ID.
+* Realm & Region APIs (`battleNet.wow.realm`, `battleNet.wow.region`)
+  * Realms Index, Realm, Realm Search, Connected Realms Index, Regions Index, Region.
+* Auction House API (`battleNet.wow.auctionHouse`)
+  * Connected Realm Auctions, Region Commodities.
+* Item API (`battleNet.wow.item`)
+  * Item Classes, Subclasses, Item Sets, Item, Item Media, Item Search.
+* Profession API (`battleNet.wow.profession`)
+  * Professions Index, Profession, Media, Skill Tier, Recipe, Recipe Media.
+* Mythic Keystone & Raid Leaderboards (`battleNet.wow.mythicKeystoneLeaderboard`, `battleNet.wow.mythicRaidLeaderboard`)
+  * Mythic Keystone Dungeon/Season/Index, Realm Mythic Leaderboards, Hall of Fame Raid Leaderboards.
 
 ### World of Warcraft: Forever APIs
 
@@ -214,6 +224,26 @@ final MythicKeystoneAffixMediaResponse mythicKeystoneAffixMedia =
 ```
 
 ## Additional information
+
+### Grouped sub-clients (`battleNet.wow`)
+
+Newer WoW Game Data APIs are exposed through `battleNet.wow.<group>` with sensible default Retail namespaces:
+
+```dart
+final ItemResponse item = await battleNet.wow.item.getItem(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  locale: BattleNetLocale.enGB,
+  itemId: 19019,
+);
+
+final AuctionsResponse auctions = await battleNet.wow.auctionHouse.getAuctions(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  locale: BattleNetLocale.enGB,
+  connectedRealmId: 1301,
+);
+```
 
 ### WoW: Forever usage
 

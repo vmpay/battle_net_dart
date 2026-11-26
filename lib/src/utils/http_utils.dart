@@ -1,7 +1,11 @@
 // In your http_utils.dart (or wherever doGet is defined)
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
+import 'package:battle_net/src/exceptions/battle_net_not_found_exception.dart';
 import 'package:http/http.dart' as http;
+
+/// Error code Blizzard returns in the body of "resource not found" responses.
+const String _notFoundCode = 'BLZWEBAPI00000404';
 
 /// Returns the base URL for Battle.net API requests based on the provided [region].
 ///
@@ -25,7 +29,8 @@ String getBattleNetBaseUrl(BattleNetRegion region) {
 ///
 /// Returns a [Future] that completes with the parsed response of type [T].
 ///
-/// Throws an [Exception] if the HTTP request fails or returns a non-2xx status code.
+/// Throws a `BattleNetNotFoundException` for `404` responses that contain the
+/// `BLZWEBAPI00000404` code, and an [Exception] for any other failure.
 Future<T> doGet<T>({
   required http.Client client,
   required int connectionTimeout,
@@ -79,12 +84,17 @@ Future<T> doGet<T>({
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return parser(response.body);
+    } else if (response.statusCode == 404 &&
+        response.body.contains(_notFoundCode)) {
+      throw BattleNetNotFoundException(url: '$uri', body: response.body);
     } else {
       // Handle errors appropriately
       throw Exception(
         'Failed to load data from $uri: ${response.statusCode} ${response.reasonPhrase}\nBody: ${response.body}',
       );
     }
+  } on BattleNetNotFoundException {
+    rethrow;
   } catch (e) {
     // Handle network errors or timeouts
     throw Exception('Error during HTTP request to $uri: $e');

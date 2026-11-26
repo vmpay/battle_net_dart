@@ -1,5 +1,8 @@
 // In your ConnectedRealmClient.dart
+import 'package:battle_net/src/constants/battle_net_locale.dart';
+import 'package:battle_net/src/models/common/api_model.dart';
 import 'package:battle_net/src/utils/http_utils.dart';
+import 'package:battle_net/src/wow/game/realm/models/realm_models.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../constants/battle_net_namespace.dart';
@@ -27,6 +30,24 @@ class ConnectedRealmClient {
   ConnectedRealmClient({required int connectionTimeout, http.Client? client})
     : _connectionTimeout = connectionTimeout,
       _httpClient = client ?? http.Client();
+
+  /// Returns an index of connected realms.
+  Future<ConnectedRealmsIndexResponse> getConnectedRealmsIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamic,
+  }) => doGet<ConnectedRealmsIndexResponse>(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: '/data/wow/connected-realm/index',
+    parser: (String body) =>
+        ConnectedRealmsIndexResponse(ApiModel.decode(body)),
+  );
 
   /// Returns a connected realm by ID.
   ///

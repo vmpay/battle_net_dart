@@ -28,27 +28,23 @@ enum BattleNetNamespace {
   /// Dynamic Forever namespace (`dynamic-forever-{region}`).
   dynamicForever,
 
-  /// Static Forever namespace — versioned (`static-{version}-forever-{region}`).
+  /// Static Forever namespace (`static-forever-{region}`).
   ///
-  /// Used for versioned static data such as item/spell lookups in WoW: Forever.
-  /// Pass a `foreverStaticVersion` when constructing the [BattleNet] client to
-  /// override the default version string.
+  /// Blizzard resolves it to the current WoW: Forever game build
+  /// (for example `static-1.60.1_70399-forever-eu`).
   staticForever,
 
-  /// Static Forever namespace — unversioned (`static-forever-{region}`).
-  ///
-  /// Used for item lookups where no pinned version is required.
+  /// Static Forever namespace for item lookups (`static-forever-{region}`).
+  @Deprecated(
+    'Identical to staticForever. Use BattleNetNamespace.staticForever; '
+    'this value will be removed in 0.5.0.',
+  )
   staticForeverItem,
 }
 
 /// Extension on [BattleNetNamespace] to provide the string representation of the namespace.
 extension BattleNetNamespaceExtension on BattleNetNamespace {
-  /// Returns the string representation of the [BattleNetNamespace] enum value.
-  ///
-  /// For [BattleNetNamespace.staticForever] the caller must append the version
-  /// segment manually: `'${BattleNetNamespace.staticForever.name}-$version-forever'`.
-  /// All other namespaces are complete prefix strings that `doGet` will
-  /// append `-{region}` to automatically.
+  /// Returns the namespace prefix. `doGet` appends `-{region}` to it.
   String get name {
     switch (this) {
       case BattleNetNamespace.static:
@@ -70,10 +66,6 @@ extension BattleNetNamespaceExtension on BattleNetNamespace {
       case BattleNetNamespace.dynamicForever:
         return 'dynamic-forever';
       case BattleNetNamespace.staticForever:
-        // Callers must supply the version prefix; this base is intentionally
-        // incomplete and resolved in ForeverItemClient / http_utils via
-        // the foreverStaticVersion parameter.
-        return 'static-forever';
       case BattleNetNamespace.staticForeverItem:
         return 'static-forever';
     }

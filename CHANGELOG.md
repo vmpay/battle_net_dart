@@ -1,3 +1,19 @@
+## 0.4.1
+
+- Added grouped World of Warcraft API sub-clients via `battleNet.wow.<group>`:
+  - `realm` (`getRealmsIndex`, `getRealm`, `searchRealms`)
+  - `region` (`getRegionsIndex`, `getRegion`)
+  - `connectedRealm` (added `getConnectedRealmsIndex`)
+  - `auctionHouse` (`getAuctions`, `getCommodities`)
+  - `item` (`getItemClassesIndex`, `getItemClass`, `getItemSubclass`, `getItemSetsIndex`, `getItemSet`, `getItem`, `getItemMedia`, `searchItems`)
+  - `profession` (`getProfessionsIndex`, `getProfession`, `getProfessionMedia`, `getProfessionSkillTier`, `getRecipe`, `getRecipeMedia`)
+  - `mythicKeystoneDungeon` (added `getMythicKeystoneIndex`, `getMythicKeystoneDungeonsIndex`, `getMythicKeystoneDungeon`, `getMythicKeystoneSeasonsIndex`, `getMythicKeystoneSeason`)
+  - `mythicKeystoneLeaderboard` (`getMythicKeystoneLeaderboardsIndex`, `getMythicKeystoneLeaderboard`)
+  - `mythicRaidLeaderboard` (`getMythicRaidLeaderboard`)
+- Added `ApiModel` base class (typed core fields + `raw` JSON map), `KeyedRef`, `MediaAsset`, `MediaResponse`, `SearchResponse`, `SearchResult`, and `BattleNetFaction`.
+- Centralized `404` + `BLZWEBAPI00000404` → `BattleNetNotFoundException` handling in `doGet` and added optional `httpClient` injection to all clients.
+- Deprecated `foreverStaticVersion` and `BattleNetNamespace.staticForeverItem` (to be removed in `0.5.0`).
+
 ## 0.4.0
 
 - Added WoW: Forever API support:
