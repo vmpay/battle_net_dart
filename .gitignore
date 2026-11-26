@@ -34,10 +34,6 @@ build/
 # Test coverage output
 coverage/
 
-# Local API credentials used by integration tests (never commit real secrets).
-# CI generates this file via .github/workflows/write_credentials.sh
-test/integration/credentials.dart
-
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
