@@ -255,4 +255,24 @@ Future<void> main() async {
     toyId: 30,
   );
   print(toy);
+
+  /// Character & Guild Profile APIs
+  final CharacterProfileResponse charProfile = await battleNet.wow.character
+      .getCharacterProfile(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        locale: BattleNetLocale.enGB,
+        realmSlug: 'ravencrest',
+        characterName: 'rinox',
+      );
+  print(charProfile);
+
+  final GuildResponse guild = await battleNet.wow.guild.getGuild(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    realmSlug: 'ravencrest',
+    nameSlug: 'viysko-nightelfiyske',
+  );
+  print(guild);
 }

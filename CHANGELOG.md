@@ -1,3 +1,10 @@
+## 0.4.4
+
+- Added World of Warcraft Profile & Guild APIs under `battleNet.wow`:
+  - `account` (`getAccountProfile`, `getProtectedCharacterProfile`, `getAccountCollectionsIndex`, `getAccountMountsCollection`, `getAccountPetsCollection`, `getAccountToysCollection`, `getAccountHeirloomsCollection`, `getAccountTransmogsCollection` — requires user token with `wow.profile` scope)
+  - `character` (29 endpoints: profile, status, achievements, statistics, appearance, collections, encounters, equipment, hunter pets, media, mythic keystone profile/season, professions, PvP summary/bracket, quests, reputations, soulbinds, specializations, titles)
+  - `guild` (`getGuild`, `getGuildActivity`, `getGuildAchievements`, `getGuildRoster`)
+
 ## 0.4.3
 
 - Added Batch C World of Warcraft Game Data sub-clients under `battleNet.wow`:

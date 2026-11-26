@@ -32,6 +32,9 @@ import 'package:battle_net/src/wow/game/tech_talent/tech_talent_client.dart';
 import 'package:battle_net/src/wow/game/title/title_client.dart';
 import 'package:battle_net/src/wow/game/token/token_client.dart';
 import 'package:battle_net/src/wow/game/toy/toy_client.dart';
+import 'package:battle_net/src/wow/profile/account/account_profile_client.dart';
+import 'package:battle_net/src/wow/profile/character/character_profile_client.dart';
+import 'package:battle_net/src/wow/profile/guild/guild_client.dart';
 import 'package:http/http.dart' as http;
 
 /// Grouped World of Warcraft API sub-clients exposed via `battleNet.wow`.
@@ -180,6 +183,18 @@ class WowApi {
        toy = ToyClient(
          connectionTimeout: connectionTimeout,
          client: httpClient,
+       ),
+       account = AccountProfileClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       character = CharacterProfileClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       guild = GuildClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
        );
 
   final TokenClient _token;
@@ -308,4 +323,13 @@ class WowApi {
 
   /// Toy API.
   final ToyClient toy;
+
+  /// Account Profile API (requires user token with `wow.profile` scope).
+  final AccountProfileClient account;
+
+  /// Character Profile API.
+  final CharacterProfileClient character;
+
+  /// Guild Profile API.
+  final GuildClient guild;
 }
