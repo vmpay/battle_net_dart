@@ -5,6 +5,7 @@ import 'package:battle_net/src/wow/game/connected_realm/connected_realm_client.d
 import 'package:battle_net/src/wow/game/mythic_keystone_affix/mythic_keystone_affix_client.dart';
 import 'package:battle_net/src/wow/game/token/models/token_index_response.dart';
 import 'package:battle_net/src/wow/game/token/token_client.dart';
+import 'package:http/http.dart' as http;
 
 import 'constants/battle_net_locale.dart';
 import 'constants/battle_net_namespace.dart';
@@ -16,6 +17,15 @@ import 'oauth/models/authorization_code_response.dart';
 import 'oauth/models/check_token_response.dart';
 import 'oauth/models/client_credentials_response.dart';
 import 'oauth/models/user_info_response.dart';
+import 'wow/forever/forever_account_client.dart';
+import 'wow/forever/forever_character_client.dart';
+import 'wow/forever/forever_character_slug.dart';
+import 'wow/forever/forever_item_client.dart';
+import 'wow/forever/forever_ruleset_client.dart';
+import 'wow/forever/models/forever_account_models.dart';
+import 'wow/forever/models/forever_character_models.dart';
+import 'wow/forever/models/forever_item_models.dart';
+import 'wow/forever/models/forever_ruleset_models.dart';
 import 'wow/game/connected_realm/models/connected_realm_search_data.dart';
 import 'wow/game/connected_realm/models/connected_realm_search_response.dart';
 import 'wow/game/connected_realm/models/population_type_localised.dart';
@@ -40,11 +50,18 @@ class BattleNet {
   /// The connection timeout in milliseconds for API requests.
   final int connectionTimeout;
 
+  /// The version string used for WoW: Forever static namespaces.
+  final String foreverStaticVersion;
+
   late final OauthClient _oauthClient;
   late final TokenClient _tokenClient;
   late final ConnectedRealmClient _connectedRealmClient;
   late final MythicKeystoneDungeonClient _mythicKeystoneDungeonClient;
   late final MythicKeystoneAffixClient _mythicKeystoneAffixClient;
+  late final ForeverCharacterClient _foreverCharacterClient;
+  late final ForeverAccountClient _foreverAccountClient;
+  late final ForeverItemClient _foreverItemClient;
+  late final ForeverRulesetClient _foreverRulesetClient;
 
   /// Creates an instance of [BattleNet].
   ///
@@ -52,12 +69,17 @@ class BattleNet {
   /// [logLevel] specifies the level of logging for API requests (defaults to [LogLevel.BASIC]).
   /// [enableReleaseLogging] determines if logging is enabled in release mode (defaults to `false`).
   /// [connectionTimeout] sets the timeout for API requests in milliseconds (defaults to `10000`).
+  /// [foreverStaticVersion] overrides the default WoW: Forever static namespace version (`1.60.1_70399`).
+  /// [httpClient] is an optional HTTP client used by the OAuth and WoW: Forever
+  /// clients (useful for testing). Defaults to a new [http.Client] per client.
   BattleNet({
     required String clientId,
     required String clientSecret,
     LogLevel logLevel = LogLevel.BASIC,
     bool enableReleaseLogging = false,
     this.connectionTimeout = 10000,
+    this.foreverStaticVersion = '1.60.1_70399',
+    http.Client? httpClient,
   }) : _clientId = clientId,
        _auth = base64.encode(utf8.encode('$clientId:$clientSecret')) {
     Logger.init(logLevel: logLevel, enableReleaseLogging: enableReleaseLogging);
@@ -65,6 +87,7 @@ class BattleNet {
       auth: _auth,
       clientId: _clientId,
       connectionTimeout: connectionTimeout,
+      httpClient: httpClient,
     );
     _tokenClient = TokenClient(connectionTimeout: connectionTimeout);
     _connectedRealmClient = ConnectedRealmClient(
@@ -75,6 +98,22 @@ class BattleNet {
     );
     _mythicKeystoneAffixClient = MythicKeystoneAffixClient(
       connectionTimeout: connectionTimeout,
+    );
+    _foreverCharacterClient = ForeverCharacterClient(
+      connectionTimeout: connectionTimeout,
+      client: httpClient,
+    );
+    _foreverAccountClient = ForeverAccountClient(
+      connectionTimeout: connectionTimeout,
+      client: httpClient,
+    );
+    _foreverItemClient = ForeverItemClient(
+      connectionTimeout: connectionTimeout,
+      client: httpClient,
+    );
+    _foreverRulesetClient = ForeverRulesetClient(
+      connectionTimeout: connectionTimeout,
+      client: httpClient,
     );
   }
 
@@ -145,6 +184,16 @@ class BattleNet {
   /// Returns a [UserInfoResponse] containing user information.
   Future<UserInfoResponse> getUserInfo({required String accessToken}) async {
     return _oauthClient.getUserInfo(accessToken: accessToken);
+  }
+
+  /// Exchanges a [refreshToken] for a new access token.
+  ///
+  /// Returns an [AuthorizationCodeResponse] containing the new access token
+  /// and refresh token details.
+  Future<AuthorizationCodeResponse> refreshAccessToken({
+    required String refreshToken,
+  }) async {
+    return _oauthClient.refreshAccessToken(refreshToken: refreshToken);
   }
 
   /// OAuthRegion end
@@ -360,5 +409,247 @@ class BattleNet {
   }
 
   /// Game Region end
+
+  /// WoW: Forever Region start
+
+  /// Returns the base character profile for a WoW: Forever character.
+  Future<ForeverCharacterProfileResponse> getForeverCharacterProfile({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterProfile(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns a Forever character's equipped items.
+  Future<ForeverCharacterEquipmentResponse> getForeverCharacterEquipment({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterEquipment(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns render asset URLs for a Forever character.
+  Future<ForeverCharacterMediaResponse> getForeverCharacterMedia({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterMedia(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns a Forever character's completed achievements.
+  Future<ForeverCharacterAchievementsResponse> getForeverCharacterAchievements({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterAchievements(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns achievement statistics for a Forever character.
+  Future<ForeverCharacterStatisticsResponse> getForeverCharacterStatistics({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterStatistics(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns dungeon encounter completion data for a Forever character.
+  Future<ForeverCharacterEncountersResponse>
+  getForeverCharacterDungeonEncounters({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterDungeonEncounters(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns the PvP summary for a Forever character.
+  Future<ForeverCharacterPvpSummaryResponse> getForeverCharacterPvpSummary({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterPvpSummary(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns completed quests for a Forever character.
+  Future<ForeverCharacterQuestsResponse> getForeverCharacterCompletedQuests({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterCompletedQuests(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns reputations for a Forever character.
+  Future<ForeverCharacterReputationsResponse> getForeverCharacterReputations({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterReputations(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns profession skill levels for a Forever character.
+  Future<ForeverCharacterProfessionsResponse> getForeverCharacterProfessions({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterProfessions(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns specialization data for a Forever character.
+  Future<ForeverCharacterSpecializationsResponse>
+  getForeverCharacterSpecializations({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterSpecializations(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns unlocked titles for a Forever character.
+  Future<ForeverCharacterTitlesResponse> getForeverCharacterTitles({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterTitles(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns the mount and pet collection summary for a Forever character.
+  Future<ForeverCharacterCollectionsResponse> getForeverCharacterCollections({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required ForeverCharacterSlug slug,
+  }) => _foreverCharacterClient.getForeverCharacterCollections(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    slug: slug,
+  );
+
+  /// Returns the WoW: Forever account profile summary.
+  ///
+  /// [accessToken] must be a **user token** with `wow.profile` scope.
+  Future<ForeverAccountProfileResponse> getForeverAccountProfile({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+  }) => _foreverAccountClient.getForeverAccountProfile(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+  );
+
+  /// Returns item data for the given [itemId] in WoW: Forever.
+  Future<ForeverItemResponse> getItemData({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int itemId,
+  }) => _foreverItemClient.getItemData(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    itemId: itemId,
+  );
+
+  /// Returns an index of all active WoW: Forever rulesets.
+  Future<ForeverRulesetIndexResponse> getForeverRulesetIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+  }) => _foreverRulesetClient.getForeverRulesetIndex(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+  );
+
+  /// Returns details for a specific WoW: Forever ruleset.
+  Future<ForeverRulesetResponse> getForeverRuleset({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int rulesetId,
+  }) => _foreverRulesetClient.getForeverRuleset(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    rulesetId: rulesetId,
+  );
+
+  /// Returns a paginated view of the auction house for a WoW: Forever ruleset.
+  Future<ForeverAuctionPageResponse> getForeverRulesetAuctions({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int rulesetId,
+    int page = 1,
+    int pageSize = 100,
+  }) => _foreverRulesetClient.getForeverRulesetAuctions(
+    accessToken: accessToken,
+    region: region,
+    locale: locale,
+    rulesetId: rulesetId,
+    page: page,
+    pageSize: pageSize,
+  );
+
+  /// WoW: Forever Region end
   /// WoW Region end
 }

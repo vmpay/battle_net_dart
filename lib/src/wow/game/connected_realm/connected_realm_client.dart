@@ -9,6 +9,7 @@ import 'models/connected_realm_search_response.dart';
 import 'models/population_type_localised.dart';
 import 'models/realm_localised.dart';
 import 'models/server_status_localised.dart'; // If you need to pass a locale
+
 // ... other imports
 
 /// A client for interacting with the World of Warcraft Connected Realm API.

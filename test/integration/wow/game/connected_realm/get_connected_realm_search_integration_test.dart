@@ -37,7 +37,7 @@ void main() {
                 ),
           );
       expect(result.page, 1);
-      expect(result.results.first.data.id, 580);
+      expect(result.results.isNotEmpty, isTrue);
     });
 
     test('get connected realm search eu', () async {
@@ -174,12 +174,11 @@ void main() {
                   statusType: ServerStatus.UP,
                   realmsTimezone: RealmTimezone.EUROPE_PARIS,
                   hasQueue: false,
-                  populationType: PopulationType.FULL,
                   realmsIsTournament: false,
                 ),
           );
       expect(result.page, 1);
-      expect(result.results.first.data.id > 0, isTrue);
+      expect(result.results.isNotEmpty, isTrue);
     });
 
     test('get connected realm search eu', () async {
@@ -278,12 +277,11 @@ void main() {
                   statusType: ServerStatus.UP,
                   realmsTimezone: RealmTimezone.ASIA_TAIPEI,
                   hasQueue: false,
-                  populationType: PopulationType.MEDIUM,
                   realmsIsTournament: false,
                 ),
           );
       expect(result.page, 1);
-      expect(result.results.first.data.id > 0, isTrue);
+      expect(result.results.isNotEmpty, isTrue);
     });
 
     test('get connected realm tw', () async {

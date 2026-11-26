@@ -205,4 +205,41 @@ class OauthClient {
       throw Exception(response.reasonPhrase);
     }
   }
+
+  /// Exchanges a [refreshToken] for a new access token.
+  ///
+  /// Returns an [AuthorizationCodeResponse] containing the new access token
+  /// and refresh token details.
+  Future<AuthorizationCodeResponse> refreshAccessToken({
+    required String refreshToken,
+  }) async {
+    final Map<String, String> headers = <String, String>{
+      'Authorization': 'Basic $_auth',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    final http.Request request = http.Request(
+      'POST',
+      Uri.parse('https://oauth.battle.net/oauth/token'),
+    );
+    request.bodyFields = <String, String>{
+      'grant_type': 'refresh_token',
+      'refresh_token': refreshToken,
+    };
+    request.headers.addAll(headers);
+
+    Logger.logRequest(request: request);
+
+    final http.StreamedResponse response = await _httpClient
+        .send(request)
+        .timeout(Duration(milliseconds: _connectionTimeout));
+
+    if (response.statusCode == 200) {
+      final String body = await response.stream.bytesToString();
+      Logger.logResponse(response: response, body: body);
+      return AuthorizationCodeResponse.fromRawJson(body);
+    } else {
+      Logger.logResponse(response: response);
+      throw Exception(response.reasonPhrase);
+    }
+  }
 }
