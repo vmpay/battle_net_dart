@@ -1,5 +1,16 @@
 import 'package:battle_net/src/models/common/api_model.dart';
 
+/// Response of `GET /data/wow/connected-realm/{id}/auctions/index`
+/// (WoW Classic).
+class AuctionHousesIndexResponse extends ApiModel {
+  /// Creates an [AuctionHousesIndexResponse] from its JSON object.
+  AuctionHousesIndexResponse(super.raw);
+
+  /// The auction houses for the connected realm (e.g. Alliance, Horde,
+  /// Blackwater).
+  List<KeyedRef> get auctions => refsOf('auctions');
+}
+
 /// Response of `GET /data/wow/connected-realm/{id}/auctions` and
 /// `GET /data/wow/auctions/commodities`.
 ///

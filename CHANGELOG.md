@@ -1,3 +1,10 @@
+## 0.4.5
+
+- Added WoW Classic support:
+  - Added `BattleNetNamespace.profileClassic` (`profile-classic-{region}`) and `BattleNetNamespace.profileClassic1x` (`profile-classic1x-{region}`).
+  - Added `getAuctionHousesIndex` and `getClassicAuctions` to `AuctionHouseClient` (`battleNet.wow.auctionHouse`).
+  - Documented the Retail / Classic / Classic Era / Forever support matrix in `README.md`.
+
 ## 0.4.4
 
 - Added World of Warcraft Profile & Guild APIs under `battleNet.wow`:

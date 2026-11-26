@@ -22,6 +22,12 @@ enum BattleNetNamespace {
   /// Dynamic Classic namespace.
   dynamicClassic,
 
+  /// Profile Classic namespace (`profile-classic-{region}`).
+  profileClassic,
+
+  /// Profile Classic 1x (Classic Era) namespace (`profile-classic1x-{region}`).
+  profileClassic1x,
+
   /// Profile Forever namespace (`profile-forever-{region}`).
   profileForever,
 
@@ -61,6 +67,10 @@ extension BattleNetNamespaceExtension on BattleNetNamespace {
         return 'static-classic';
       case BattleNetNamespace.dynamicClassic:
         return 'dynamic-classic';
+      case BattleNetNamespace.profileClassic:
+        return 'profile-classic';
+      case BattleNetNamespace.profileClassic1x:
+        return 'profile-classic1x';
       case BattleNetNamespace.profileForever:
         return 'profile-forever';
       case BattleNetNamespace.dynamicForever:
