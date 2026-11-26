@@ -2,9 +2,11 @@
 import 'package:battle_net/src/constants/battle_net_locale.dart';
 import 'package:battle_net/src/constants/battle_net_namespace.dart';
 import 'package:battle_net/src/constants/battle_net_region.dart';
+import 'package:battle_net/src/models/common/api_model.dart';
 import 'package:battle_net/src/utils/http_utils.dart';
 import 'package:http/http.dart' as http;
 
+import 'models/mythic_keystone_models.dart';
 import 'models/mythic_keystone_period_response.dart';
 import 'models/mythic_keystone_periods_index_response.dart';
 
@@ -84,4 +86,95 @@ class MythicKeystoneDungeonClient {
       parser: MythicKeystonePeriodResponse.fromRawJson,
     );
   }
+
+  /// Returns an index of Mythic Keystone links (seasons and dungeons).
+  Future<MythicKeystoneIndexResponse> getMythicKeystoneIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamic,
+  }) => doGet<MythicKeystoneIndexResponse>(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: '$_gameDataApiBasePath/mythic-keystone/index',
+    parser: (String body) => MythicKeystoneIndexResponse(ApiModel.decode(body)),
+  );
+
+  /// Returns an index of Mythic Keystone dungeons.
+  Future<MythicKeystoneDungeonsIndexResponse> getMythicKeystoneDungeonsIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamic,
+  }) => doGet<MythicKeystoneDungeonsIndexResponse>(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: '$_gameDataApiBasePath/mythic-keystone/dungeon/index',
+    parser: (String body) =>
+        MythicKeystoneDungeonsIndexResponse(ApiModel.decode(body)),
+  );
+
+  /// Returns a Mythic Keystone dungeon by [dungeonId].
+  Future<MythicKeystoneDungeonResponse> getMythicKeystoneDungeon({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int dungeonId,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamic,
+  }) => doGet<MythicKeystoneDungeonResponse>(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: '$_gameDataApiBasePath/mythic-keystone/dungeon/$dungeonId',
+    parser: (String body) =>
+        MythicKeystoneDungeonResponse(ApiModel.decode(body)),
+  );
+
+  /// Returns an index of Mythic Keystone seasons.
+  Future<MythicKeystoneSeasonsIndexResponse> getMythicKeystoneSeasonsIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamic,
+  }) => doGet<MythicKeystoneSeasonsIndexResponse>(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: '$_gameDataApiBasePath/mythic-keystone/season/index',
+    parser: (String body) =>
+        MythicKeystoneSeasonsIndexResponse(ApiModel.decode(body)),
+  );
+
+  /// Returns a Mythic Keystone season by [seasonId].
+  Future<MythicKeystoneSeasonResponse> getMythicKeystoneSeason({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int seasonId,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamic,
+  }) => doGet<MythicKeystoneSeasonResponse>(
+    client: _httpClient,
+    connectionTimeout: _connectionTimeout,
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    queryParameters: <String, String?>{'locale': locale.name},
+    path: '$_gameDataApiBasePath/mythic-keystone/season/$seasonId',
+    parser: (String body) =>
+        MythicKeystoneSeasonResponse(ApiModel.decode(body)),
+  );
 }

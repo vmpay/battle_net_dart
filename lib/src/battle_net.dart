@@ -37,6 +37,7 @@ import 'wow/game/mythic_keystone_affix/models/mythic_keystone_affixes_index_resp
 import 'wow/game/mythic_keystone_dungeon/models/mythic_keystone_period_response.dart';
 import 'wow/game/mythic_keystone_dungeon/models/mythic_keystone_periods_index_response.dart';
 import 'wow/game/mythic_keystone_dungeon/mythic_keystone_dungeon_client.dart';
+import 'wow/wow_api.dart';
 
 /// A Dart wrapper client for the Battle.net API.
 ///
@@ -51,7 +52,14 @@ class BattleNet {
   final int connectionTimeout;
 
   /// The version string used for WoW: Forever static namespaces.
+  @Deprecated(
+    'Unversioned staticForever resolves to the current build automatically. '
+    'This field will be removed in 0.5.0.',
+  )
   final String foreverStaticVersion;
+
+  /// Grouped World of Warcraft API sub-clients.
+  late final WowApi wow;
 
   late final OauthClient _oauthClient;
   late final TokenClient _tokenClient;
@@ -69,8 +77,8 @@ class BattleNet {
   /// [logLevel] specifies the level of logging for API requests (defaults to [LogLevel.BASIC]).
   /// [enableReleaseLogging] determines if logging is enabled in release mode (defaults to `false`).
   /// [connectionTimeout] sets the timeout for API requests in milliseconds (defaults to `10000`).
-  /// [foreverStaticVersion] overrides the default WoW: Forever static namespace version (`1.60.1_70399`).
-  /// [httpClient] is an optional HTTP client used by the OAuth and WoW: Forever
+  /// [foreverStaticVersion] is deprecated and ignored; will be removed in 0.5.0.
+  /// [httpClient] is an optional HTTP client used by the OAuth and WoW
   /// clients (useful for testing). Defaults to a new [http.Client] per client.
   BattleNet({
     required String clientId,
@@ -78,6 +86,9 @@ class BattleNet {
     LogLevel logLevel = LogLevel.BASIC,
     bool enableReleaseLogging = false,
     this.connectionTimeout = 10000,
+    @Deprecated(
+      'Unversioned staticForever is used automatically; removed in 0.5.0.',
+    )
     this.foreverStaticVersion = '1.60.1_70399',
     http.Client? httpClient,
   }) : _clientId = clientId,
@@ -89,15 +100,21 @@ class BattleNet {
       connectionTimeout: connectionTimeout,
       httpClient: httpClient,
     );
-    _tokenClient = TokenClient(connectionTimeout: connectionTimeout);
+    _tokenClient = TokenClient(
+      connectionTimeout: connectionTimeout,
+      client: httpClient,
+    );
     _connectedRealmClient = ConnectedRealmClient(
       connectionTimeout: connectionTimeout,
+      client: httpClient,
     );
     _mythicKeystoneDungeonClient = MythicKeystoneDungeonClient(
       connectionTimeout: connectionTimeout,
+      client: httpClient,
     );
     _mythicKeystoneAffixClient = MythicKeystoneAffixClient(
       connectionTimeout: connectionTimeout,
+      client: httpClient,
     );
     _foreverCharacterClient = ForeverCharacterClient(
       connectionTimeout: connectionTimeout,
@@ -114,6 +131,18 @@ class BattleNet {
     _foreverRulesetClient = ForeverRulesetClient(
       connectionTimeout: connectionTimeout,
       client: httpClient,
+    );
+    wow = WowApi(
+      connectionTimeout: connectionTimeout,
+      httpClient: httpClient,
+      token: _tokenClient,
+      connectedRealm: _connectedRealmClient,
+      mythicKeystoneDungeon: _mythicKeystoneDungeonClient,
+      mythicKeystoneAffix: _mythicKeystoneAffixClient,
+      foreverCharacter: _foreverCharacterClient,
+      foreverAccount: _foreverAccountClient,
+      foreverItem: _foreverItemClient,
+      foreverRuleset: _foreverRulesetClient,
     );
   }
 

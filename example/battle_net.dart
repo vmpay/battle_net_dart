@@ -221,4 +221,21 @@ Future<void> main() async {
         locale: BattleNetLocale.enGB,
       );
   print(account);
+
+  /// Grouped WoW Game Data sub-clients (battleNet.wow)
+  final ItemResponse retailItem = await battleNet.wow.item.getItem(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    itemId: 19019,
+  );
+  print(retailItem);
+
+  final RealmResponse realm = await battleNet.wow.realm.getRealm(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    realmSlug: 'ravencrest',
+  );
+  print(realm);
 }
