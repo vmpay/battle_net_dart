@@ -238,4 +238,13 @@ Future<void> main() async {
     realmSlug: 'ravencrest',
   );
   print(realm);
+
+  final AchievementResponse achievement = await battleNet.wow.achievement
+      .getAchievement(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        locale: BattleNetLocale.enGB,
+        achievementId: 6,
+      );
+  print(achievement);
 }

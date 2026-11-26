@@ -14,3 +14,4 @@ Execute these checks in order and fix any failures before summarizing:
    - Confirm all new Forever models, methods, and `BattleNetNotFoundException` are exported from `lib/battle_net.dart`.
    - Confirm `pubspec.yaml` version (`0.4.0`), `CHANGELOG.md`, and `README.md` usage examples reflect the new Forever endpoints.
 5. **Dry-run publish**: Run `dart pub publish --dry-run` and report any pub points warnings.
+6. **Pana scoring (optional)**: If running `pana` on a clean copy of the repo, remove the temporary copy directory immediately after capturing the score.

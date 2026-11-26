@@ -1,3 +1,20 @@
+## 0.4.2
+
+- Added Batch B World of Warcraft Game Data sub-clients under `battleNet.wow`:
+  - `achievement` (`getAchievementCategoriesIndex`, `getAchievementCategory`, `getAchievementsIndex`, `getAchievement`, `getAchievementMedia`)
+  - `creature` (`getCreatureFamiliesIndex`, `getCreatureFamily`, `getCreatureFamilyMedia`, `getCreatureTypesIndex`, `getCreatureType`, `getCreature`, `getCreatureDisplayMedia`, `searchCreatures`)
+  - `journal` (`getJournalExpansionsIndex`, `getJournalExpansion`, `getJournalEncountersIndex`, `getJournalEncounter`, `searchJournalEncounters`, `getJournalInstancesIndex`, `getJournalInstance`, `getJournalInstanceMedia`)
+  - `mount` (`getMountsIndex`, `getMount`, `searchMounts`)
+  - `pet` (`getPetsIndex`, `getPet`, `getPetMedia`, `getPetAbilitiesIndex`, `getPetAbility`, `getPetAbilityMedia`)
+  - `playableClass` (`getPlayableClassesIndex`, `getPlayableClass`, `getPlayableClassMedia`, `getPvpTalentSlots`)
+  - `playableRace` (`getPlayableRacesIndex`, `getPlayableRace`)
+  - `playableSpecialization` (`getPlayableSpecializationsIndex`, `getPlayableSpecialization`, `getPlayableSpecializationMedia`)
+  - `pvpSeason` (`getPvpSeasonsIndex`, `getPvpSeason`, `getPvpLeaderboardsIndex`, `getPvpLeaderboard`, `getPvpRewardsIndex`)
+  - `pvpTier` (`getPvpTiersIndex`, `getPvpTier`, `getPvpTierMedia`)
+  - `quest` (`getQuestsIndex`, `getQuest`, `getQuestCategoriesIndex`, `getQuestCategory`, `getQuestAreasIndex`, `getQuestArea`, `getQuestTypesIndex`, `getQuestType`)
+  - `spell` (`getSpell`, `getSpellMedia`, `searchSpells`)
+  - `talent` (`getTalentTreesIndex`, `getTalentTree`, `getTalentTreeNodes`, `getTalentsIndex`, `getTalent`, `getPvpTalentsIndex`, `getPvpTalent`)
+
 ## 0.4.1
 
 - Added grouped World of Warcraft API sub-clients via `battleNet.wow.<group>`:

@@ -67,6 +67,8 @@ This library now boasts significantly increased unit and integration test covera
   * Professions Index, Profession, Media, Skill Tier, Recipe, Recipe Media.
 * Mythic Keystone & Raid Leaderboards (`battleNet.wow.mythicKeystoneLeaderboard`, `battleNet.wow.mythicRaidLeaderboard`)
   * Mythic Keystone Dungeon/Season/Index, Realm Mythic Leaderboards, Hall of Fame Raid Leaderboards.
+* Core Reference Game Data (`battleNet.wow`):
+  * `achievement`, `creature`, `journal`, `mount`, `pet`, `playableClass`, `playableRace`, `playableSpecialization`, `pvpSeason`, `pvpTier`, `quest`, `spell`, `talent`.
 
 ### World of Warcraft: Forever APIs
 
