@@ -46,4 +46,40 @@ class AuctionHouseClient extends ApiClient {
     path: '/data/wow/auctions/commodities',
     parse: AuctionsResponse.new,
   );
+
+  /// Returns an index of auction houses for a WoW Classic connected realm
+  /// (e.g. Alliance, Horde, Blackwater).
+  Future<AuctionHousesIndexResponse> getAuctionHousesIndex({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int connectedRealmId,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamicClassic1x,
+  }) => get(
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    locale: locale,
+    path: '/data/wow/connected-realm/$connectedRealmId/auctions/index',
+    parse: AuctionHousesIndexResponse.new,
+  );
+
+  /// Returns active auctions for a specific Classic [auctionHouseId]
+  /// (e.g. `2` = Alliance, `6` = Horde, `7` = Blackwater).
+  Future<AuctionsResponse> getClassicAuctions({
+    required String accessToken,
+    required BattleNetRegion region,
+    required BattleNetLocale locale,
+    required int connectedRealmId,
+    required int auctionHouseId,
+    BattleNetNamespace namespace = BattleNetNamespace.dynamicClassic1x,
+  }) => get(
+    accessToken: accessToken,
+    region: region,
+    namespace: namespace,
+    locale: locale,
+    path:
+        '/data/wow/connected-realm/$connectedRealmId/auctions/$auctionHouseId',
+    parse: AuctionsResponse.new,
+  );
 }

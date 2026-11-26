@@ -78,6 +78,19 @@ This library now boasts significantly increased unit and integration test covera
 * `character` — Character Profile, Status, Achievements, Appearance, Collections, Encounters, Equipment, Hunter Pets, Media, Mythic Keystone Profile, Professions, PvP, Quests, Reputations, Soulbinds, Specializations, Statistics, Titles.
 * `guild` — Guild Summary, Activity, Achievements, Roster.
 
+### World of Warcraft Flavor Support Matrix
+
+All `battleNet.wow` methods accept an optional `namespace` parameter (defaulting to Retail). Pass `staticClassic` / `dynamicClassic` / `profileClassic` (Progression Classic) or `staticClassic1x` / `dynamicClassic1x` / `profileClassic1x` (Classic Era) to query Classic flavors:
+
+| API Group | Retail | Progression Classic (`classic`) | Classic Era (`classic1x`) | Forever |
+|---|---|---|---|---|
+| `realm`, `connectedRealm`, `token` | ✅ | ✅ | ✅ | Uses `foreverRuleset` |
+| `auctionHouse` | ✅ `getAuctions` / `getCommodities` | ✅ | ✅ `getAuctionHousesIndex` / `getClassicAuctions` | Uses `foreverRuleset.getForeverRulesetAuctions` |
+| `item`, `playableClass`, `playableRace` | ✅ | ✅ | ✅ | `foreverItem` |
+| `achievement` | ✅ | ✅ | ✅ | `foreverCharacter` |
+| `mount`, `pet`, `quest`, `spell`, `talent` | ✅ | Subset | Subset | — |
+| `character`, `guild`, `account` | ✅ `profile` | ✅ `profileClassic` | ✅ `profileClassic1x` | `foreverCharacter` / `foreverAccount` |
+
 ### World of Warcraft: Forever APIs
 
 WoW: Forever is realmless: characters are identified by a `ForeverCharacterSlug` (`{name}-{surname}`, lowercase)

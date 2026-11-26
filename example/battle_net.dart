@@ -275,4 +275,25 @@ Future<void> main() async {
     nameSlug: 'viysko-nightelfiyske',
   );
   print(guild);
+
+  /// WoW Classic support (pass a Classic namespace or use Classic AH methods)
+  final ItemResponse classicItem = await battleNet.wow.item.getItem(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    itemId: 19019,
+    namespace: BattleNetNamespace.staticClassic1x,
+  );
+  print(classicItem);
+
+  final AuctionHousesIndexResponse classicAhIndex = await battleNet
+      .wow
+      .auctionHouse
+      .getAuctionHousesIndex(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        locale: BattleNetLocale.enGB,
+        connectedRealmId: 6113,
+      );
+  print(classicAhIndex);
 }
