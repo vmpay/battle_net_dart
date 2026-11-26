@@ -69,6 +69,8 @@ This library now boasts significantly increased unit and integration test covera
   * Mythic Keystone Dungeon/Season/Index, Realm Mythic Leaderboards, Hall of Fame Raid Leaderboards.
 * Core Reference Game Data (`battleNet.wow`):
   * `achievement`, `creature`, `journal`, `mount`, `pet`, `playableClass`, `playableRace`, `playableSpecialization`, `pvpSeason`, `pvpTier`, `quest`, `spell`, `talent`.
+* Additional Game Data (`battleNet.wow`):
+  * `azeriteEssence`, `covenant`, `guildCrest`, `heirloom`, `media`, `modifiedCrafting`, `powerType`, `reputation`, `techTalent`, `title`, `toy`.
 
 ### World of Warcraft: Forever APIs
 

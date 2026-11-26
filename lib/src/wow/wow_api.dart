@@ -4,23 +4,34 @@ import 'package:battle_net/src/wow/forever/forever_item_client.dart';
 import 'package:battle_net/src/wow/forever/forever_ruleset_client.dart';
 import 'package:battle_net/src/wow/game/achievement/achievement_client.dart';
 import 'package:battle_net/src/wow/game/auction_house/auction_house_client.dart';
+import 'package:battle_net/src/wow/game/azerite_essence/azerite_essence_client.dart';
 import 'package:battle_net/src/wow/game/connected_realm/connected_realm_client.dart';
+import 'package:battle_net/src/wow/game/covenant/covenant_client.dart';
 import 'package:battle_net/src/wow/game/creature/creature_client.dart';
+import 'package:battle_net/src/wow/game/guild_crest/guild_crest_client.dart';
+import 'package:battle_net/src/wow/game/heirloom/heirloom_client.dart';
 import 'package:battle_net/src/wow/game/item/item_client.dart';
 import 'package:battle_net/src/wow/game/journal/journal_client.dart';
+import 'package:battle_net/src/wow/game/media/media_client.dart';
+import 'package:battle_net/src/wow/game/modified_crafting/modified_crafting_client.dart';
 import 'package:battle_net/src/wow/game/mount/mount_client.dart';
 import 'package:battle_net/src/wow/game/mythic_keystone_affix/mythic_keystone_affix_client.dart';
 import 'package:battle_net/src/wow/game/mythic_keystone_dungeon/mythic_keystone_dungeon_client.dart';
 import 'package:battle_net/src/wow/game/mythic_leaderboard/mythic_leaderboard_client.dart';
 import 'package:battle_net/src/wow/game/pet/pet_client.dart';
 import 'package:battle_net/src/wow/game/playable/playable_client.dart';
+import 'package:battle_net/src/wow/game/power_type/power_type_client.dart';
 import 'package:battle_net/src/wow/game/profession/profession_client.dart';
 import 'package:battle_net/src/wow/game/pvp/pvp_client.dart';
 import 'package:battle_net/src/wow/game/quest/quest_client.dart';
 import 'package:battle_net/src/wow/game/realm/realm_client.dart';
+import 'package:battle_net/src/wow/game/reputation/reputation_client.dart';
 import 'package:battle_net/src/wow/game/spell/spell_client.dart';
 import 'package:battle_net/src/wow/game/talent/talent_client.dart';
+import 'package:battle_net/src/wow/game/tech_talent/tech_talent_client.dart';
+import 'package:battle_net/src/wow/game/title/title_client.dart';
 import 'package:battle_net/src/wow/game/token/token_client.dart';
+import 'package:battle_net/src/wow/game/toy/toy_client.dart';
 import 'package:http/http.dart' as http;
 
 /// Grouped World of Warcraft API sub-clients exposed via `battleNet.wow`.
@@ -125,6 +136,50 @@ class WowApi {
        talent = TalentClient(
          connectionTimeout: connectionTimeout,
          client: httpClient,
+       ),
+       azeriteEssence = AzeriteEssenceClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       covenant = CovenantClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       guildCrest = GuildCrestClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       heirloom = HeirloomClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       media = MediaClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       modifiedCrafting = ModifiedCraftingClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       powerType = PowerTypeClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       reputation = ReputationClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       techTalent = TechTalentClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       title = TitleClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
+       ),
+       toy = ToyClient(
+         connectionTimeout: connectionTimeout,
+         client: httpClient,
        );
 
   final TokenClient _token;
@@ -220,4 +275,37 @@ class WowApi {
 
   /// Talent API.
   final TalentClient talent;
+
+  /// Azerite Essence API.
+  final AzeriteEssenceClient azeriteEssence;
+
+  /// Covenant API.
+  final CovenantClient covenant;
+
+  /// Guild Crest API.
+  final GuildCrestClient guildCrest;
+
+  /// Heirloom API.
+  final HeirloomClient heirloom;
+
+  /// Media Search API.
+  final MediaClient media;
+
+  /// Modified Crafting API.
+  final ModifiedCraftingClient modifiedCrafting;
+
+  /// Power Type API.
+  final PowerTypeClient powerType;
+
+  /// Reputation API.
+  final ReputationClient reputation;
+
+  /// Tech Talent API.
+  final TechTalentClient techTalent;
+
+  /// Title API.
+  final TitleClient title;
+
+  /// Toy API.
+  final ToyClient toy;
 }

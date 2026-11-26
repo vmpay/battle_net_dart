@@ -247,4 +247,12 @@ Future<void> main() async {
         achievementId: 6,
       );
   print(achievement);
+
+  final ToyResponse toy = await battleNet.wow.toy.getToy(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    toyId: 30,
+  );
+  print(toy);
 }

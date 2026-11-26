@@ -1,3 +1,18 @@
+## 0.4.3
+
+- Added Batch C World of Warcraft Game Data sub-clients under `battleNet.wow`:
+  - `azeriteEssence` (`getAzeriteEssencesIndex`, `getAzeriteEssence`, `getAzeriteEssenceMedia`, `searchAzeriteEssences`)
+  - `covenant` (`getCovenantsIndex`, `getCovenant`, `getCovenantMedia`, `getSoulbindsIndex`, `getSoulbind`, `getConduitsIndex`, `getConduit`)
+  - `guildCrest` (`getGuildCrestComponentsIndex`, `getGuildCrestBorderMedia`, `getGuildCrestEmblemMedia`)
+  - `heirloom` (`getHeirloomsIndex`, `getHeirloom`)
+  - `media` (`searchMedia`)
+  - `modifiedCrafting` (`getModifiedCraftingIndex`, `getModifiedCraftingCategoriesIndex`, `getModifiedCraftingCategory`, `getModifiedCraftingReagentSlotTypesIndex`, `getModifiedCraftingReagentSlotType`)
+  - `powerType` (`getPowerTypesIndex`, `getPowerType`)
+  - `reputation` (`getReputationFactionsIndex`, `getReputationFaction`, `getReputationTiersIndex`, `getReputationTiers`)
+  - `techTalent` (`getTechTalentTreesIndex`, `getTechTalentTree`, `getTechTalentsIndex`, `getTechTalent`, `getTechTalentMedia`)
+  - `title` (`getTitlesIndex`, `getTitle`)
+  - `toy` (`getToysIndex`, `getToy`)
+
 ## 0.4.2
 
 - Added Batch B World of Warcraft Game Data sub-clients under `battleNet.wow`:
