@@ -72,6 +72,12 @@ This library now boasts significantly increased unit and integration test covera
 * Additional Game Data (`battleNet.wow`):
   * `azeriteEssence`, `covenant`, `guildCrest`, `heirloom`, `media`, `modifiedCrafting`, `powerType`, `reputation`, `techTalent`, `title`, `toy`.
 
+### [World of Warcraft Profile APIs](https://develop.battle.net/documentation/world-of-warcraft/profile-apis) (`battleNet.wow`)
+
+* `account` — Account Profile, Protected Character, Account Collections (requires user token with `wow.profile` scope).
+* `character` — Character Profile, Status, Achievements, Appearance, Collections, Encounters, Equipment, Hunter Pets, Media, Mythic Keystone Profile, Professions, PvP, Quests, Reputations, Soulbinds, Specializations, Statistics, Titles.
+* `guild` — Guild Summary, Activity, Achievements, Roster.
+
 ### World of Warcraft: Forever APIs
 
 WoW: Forever is realmless: characters are identified by a `ForeverCharacterSlug` (`{name}-{surname}`, lowercase)
