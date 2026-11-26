@@ -1,3 +1,14 @@
+## 0.4.0
+
+- Added WoW: Forever API support:
+  - `ForeverCharacterSlug` value object and `BattleNetNotFoundException` (`HTTP 404` / `BLZWEBAPI00000404`).
+  - `BattleNetNamespace` additions: `profileForever`, `dynamicForever`, `staticForever`, `staticForeverItem`.
+  - `ForeverCharacterClient` (13 character profile endpoints).
+  - `ForeverAccountClient` (`getForeverAccountProfile`).
+  - `ForeverItemClient` (`getItemData`).
+  - `ForeverRulesetClient` (`getForeverRulesetIndex`, `getForeverRuleset`, `getForeverRulesetAuctions` with client-side pagination).
+- Added `refreshAccessToken` to `OauthClient` and `BattleNet` facade.
+
 ## 0.3.0
 
 * Increased unit and integration test coverage for OAuth, connected realm models, logger, and WoW game data models.

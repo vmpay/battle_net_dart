@@ -59,46 +59,36 @@ void main() {
     const BattleNetRegion testRegion = BattleNetRegion.us;
     const BattleNetLocale testLocale = BattleNetLocale.enUS;
 
-    test(
-      'getMythicKeystonePeriod - success',
-      () async {
-        final MythicKeystonePeriodResponse response = await battleNet
-            .getMythicKeystonePeriod(
-              accessToken: accessToken,
-              region: testRegion,
-              namespace: BattleNetNamespace.dynamic,
-              locale: testLocale,
-              periodId: knownPeriodId,
-            );
-        expect(response, isA<MythicKeystonePeriodResponse>());
-        expect(response.id, knownPeriodId);
-        expect(response.startTime, isNotNull);
-        print(
-          'Fetched Period ID: ${response.id}, Start: ${response.startTime}',
-        );
-      },
-      timeout: const Timeout(Duration(seconds: 20)),
-    );
-
-    test(
-      'getMythicKeystonePeriod - not found (404)',
-      () async {
-        try {
-          await battleNet.getMythicKeystonePeriod(
+    test('getMythicKeystonePeriod - success', () async {
+      final MythicKeystonePeriodResponse response = await battleNet
+          .getMythicKeystonePeriod(
             accessToken: accessToken,
             region: testRegion,
             namespace: BattleNetNamespace.dynamic,
             locale: testLocale,
-            periodId: 999999,
+            periodId: knownPeriodId,
           );
-          fail('Should have thrown an exception for non-existent period.');
-        } catch (e) {
-          expect(e, isA<Exception>());
-          expect(e.toString().toLowerCase(), contains('not found'));
-          print('Correctly caught error for non-existent period: $e');
-        }
-      },
-      timeout: const Timeout(Duration(seconds: 20)),
-    );
+      expect(response, isA<MythicKeystonePeriodResponse>());
+      expect(response.id, knownPeriodId);
+      expect(response.startTime, isNotNull);
+      print('Fetched Period ID: ${response.id}, Start: ${response.startTime}');
+    }, timeout: const Timeout(Duration(seconds: 20)));
+
+    test('getMythicKeystonePeriod - not found (404)', () async {
+      try {
+        await battleNet.getMythicKeystonePeriod(
+          accessToken: accessToken,
+          region: testRegion,
+          namespace: BattleNetNamespace.dynamic,
+          locale: testLocale,
+          periodId: 999999,
+        );
+        fail('Should have thrown an exception for non-existent period.');
+      } catch (e) {
+        expect(e, isA<Exception>());
+        expect(e.toString().toLowerCase(), contains('not found'));
+        print('Correctly caught error for non-existent period: $e');
+      }
+    }, timeout: const Timeout(Duration(seconds: 20)));
   });
 }

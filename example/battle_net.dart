@@ -150,4 +150,75 @@ Future<void> main() async {
         locale: BattleNetLocale.enGB,
       );
   print(mythicKeystoneAffixMedia);
+
+  /// WoW: Forever
+  /// Forever characters are realmless and identified by a slug: name-surname
+  final ForeverCharacterSlug slug = ForeverCharacterSlug(
+    name: 'Ada',
+    surname: 'Brightwood',
+  );
+  try {
+    final ForeverCharacterProfileResponse foreverProfile = await battleNet
+        .getForeverCharacterProfile(
+          accessToken: clientCredentialsResponse.accessToken,
+          region: BattleNetRegion.eu,
+          locale: BattleNetLocale.enGB,
+          slug: slug,
+        );
+    print(foreverProfile);
+
+    final ForeverCharacterEquipmentResponse foreverEquipment = await battleNet
+        .getForeverCharacterEquipment(
+          accessToken: clientCredentialsResponse.accessToken,
+          region: BattleNetRegion.eu,
+          locale: BattleNetLocale.enGB,
+          slug: slug,
+        );
+    print(foreverEquipment);
+  } on BattleNetNotFoundException catch (e) {
+    /// Character is below level 10, still online, or not yet propagated
+    print(e);
+  }
+
+  /// Get Forever item data
+  final ForeverItemResponse foreverItem = await battleNet.getItemData(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    itemId: 19019,
+  );
+  print(foreverItem);
+
+  /// Forever rulesets replace connected realms
+  final ForeverRulesetIndexResponse rulesets = await battleNet
+      .getForeverRulesetIndex(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        locale: BattleNetLocale.enGB,
+      );
+  print(rulesets);
+
+  /// Auctions are paginated client-side
+  final ForeverAuctionPageResponse auctions = await battleNet
+      .getForeverRulesetAuctions(
+        accessToken: clientCredentialsResponse.accessToken,
+        region: BattleNetRegion.eu,
+        locale: BattleNetLocale.enGB,
+        rulesetId: rulesets.rulesets.first.id,
+        page: 1,
+        pageSize: 100,
+      );
+  print(auctions);
+
+  /// Refresh a user access token and fetch the Forever account profile
+  /// (requires a user token with wow.profile scope)
+  final AuthorizationCodeResponse refreshed = await battleNet
+      .refreshAccessToken(refreshToken: 'refresh_token');
+  final ForeverAccountProfileResponse account = await battleNet
+      .getForeverAccountProfile(
+        accessToken: refreshed.accessToken,
+        region: BattleNetRegion.eu,
+        locale: BattleNetLocale.enGB,
+      );
+  print(account);
 }

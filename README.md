@@ -58,6 +58,26 @@ This library now boasts significantly increased unit and integration test covera
   * Get Mythic Keystone Affix - Returns a Mythic Keystone affix by ID.
   * Get Mythic Keystone Affix Media - Returns media for a Mythic Keystone affix by ID.
 
+### World of Warcraft: Forever APIs
+
+WoW: Forever is realmless: characters are identified by a `ForeverCharacterSlug` (`{name}-{surname}`, lowercase)
+instead of a realm slug. Characters only appear in the API from level 10 and after they have logged out;
+otherwise a `BattleNetNotFoundException` (`HTTP 404` / `BLZWEBAPI00000404`) is thrown.
+
+* Character Profile APIs (`profile-forever-{region}` namespace)
+  * Profile, Equipment, Media, Achievements, Achievement Statistics, Dungeon Encounters, PvP Summary,
+  Completed Quests, Reputations, Professions, Specializations, Titles, Collections
+* Account Profile API
+  * Get Forever Account Profile - requires a user token with the `wow.profile` scope.
+* Item API (`static-forever-{region}` namespace)
+  * Get Item Data - Returns item data by ID.
+* Ruleset API (`dynamic-forever-{region}` namespace)
+  * Get Ruleset Index, Get Ruleset, Get Ruleset Auctions (client-side pagination).
+
+### OAuth token refresh
+
+* Refresh Access Token - exchanges a refresh token for a new access token.
+
 ## Getting started
 
 Add to your pubspec.yaml the latest version of the library
@@ -194,6 +214,56 @@ final MythicKeystoneAffixMediaResponse mythicKeystoneAffixMedia =
 ```
 
 ## Additional information
+
+### WoW: Forever usage
+
+```dart
+final ForeverCharacterSlug slug =
+    ForeverCharacterSlug(name: 'Ada', surname: 'Brightwood');
+
+try {
+  final ForeverCharacterProfileResponse profile =
+      await battleNet.getForeverCharacterProfile(
+    accessToken: clientCredentialsResponse.accessToken,
+    region: BattleNetRegion.eu,
+    locale: BattleNetLocale.enGB,
+    slug: slug,
+  );
+} on BattleNetNotFoundException {
+  // Character is below level 10, still online, or not yet propagated.
+}
+
+final ForeverItemResponse item = await battleNet.getItemData(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  locale: BattleNetLocale.enGB,
+  itemId: 19019,
+);
+
+final ForeverAuctionPageResponse auctions =
+    await battleNet.getForeverRulesetAuctions(
+  accessToken: clientCredentialsResponse.accessToken,
+  region: BattleNetRegion.eu,
+  locale: BattleNetLocale.enGB,
+  rulesetId: 1,
+  page: 1,
+  pageSize: 100,
+);
+print('${auctions.page}/${auctions.totalPages}, hasNext: ${auctions.hasNextPage}');
+```
+
+Account profile and token refresh (user token with `wow.profile` scope):
+
+```dart
+final AuthorizationCodeResponse refreshed =
+    await battleNet.refreshAccessToken(refreshToken: 'refresh_token');
+final ForeverAccountProfileResponse account =
+    await battleNet.getForeverAccountProfile(
+  accessToken: refreshed.accessToken,
+  region: BattleNetRegion.eu,
+  locale: BattleNetLocale.enGB,
+);
+```
 
 ### Available BattleNet regions
 
